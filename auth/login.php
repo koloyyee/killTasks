@@ -1,5 +1,8 @@
 <?php
 // youtube reference: https://www.youtube.com/watch?v=LC9GaXkdxF8
+/***
+ * login.php the file to handle login
+ */
 ?>
 
 <?php include("../partials/header.php") ?>
