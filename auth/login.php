@@ -6,7 +6,7 @@
 ?>
 
 <?php include("../partials/header.php") ?>
-    <form action="../api/auth.php" method="POST">
+    <form action="../service/auth.php" method="POST">
         <label for="email">Email</label>
         <input type="text" name="email" id="email">
         <label for="password">Password</label>
