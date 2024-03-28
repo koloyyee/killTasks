@@ -3,7 +3,7 @@
 $page_name = "Dashboard";
 ?>
 
-<?php include("../inc/header.php") ?>
+<?php include("../partials/header.php") ?>
 <?= $page_name ?>
 
-<?php include("../inc/footer.php") ?>
+<?php include("../partials/footer.php") ?>

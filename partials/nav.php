@@ -4,8 +4,8 @@ $items = [
   'Dashboard' => '../private/dashboard.php',
   'Personal' => '../private/personal.php',
   'Settings' => '../private/settings.php',
-  'Login' => '../auth/login.php',
-  'Logout' => '../auth/logout.php'
+  'Login' => '../public/auth/login.php',
+  'Logout' => '../public/auth/logout.php'
 ];
 if (isset($_SESSION['session_id'])) {
     unset($items['Login']);

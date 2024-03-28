@@ -1,3 +1,6 @@
 'use strict'
-console.log("hello world!")
-console.log(jsdata)
+import { checkInput } from './auth.js'
+
+const regForm = document.getElementById('register_form');
+// regForm.addEventListener('submit', (event) => checkInput(event, regForm));
+
