@@ -22,5 +22,5 @@ include("../config/pdo.php");
 
 <body>
   <?php if (!$is_login  &&  !$is_register ) : ?>
-    <?php include("nav.php") ?>
+    <?php include("../partials/nav.php") ?>
   <?php endif ?>
