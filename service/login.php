@@ -1,18 +1,21 @@
 <?php
+declare(strict_types=1);
 session_start();
-include("../src/libs/checkers.php");
+include("../utils/checkers.php");
+require('../config/pdo.php');
 
 $email=sanitize($_POST['email'], Input::email);
-$password=sanitize($_POST['password'], Input::password);
-
+$password= $_POST['password']; 
 $sql = "SELECT first_name, last_name, password FROM user WHERE email = '$email'";
-// strcmp($password, $r['password']) || 
-require('../config/pdo.php');
 try {
     $row = $conn->query($sql);
     if (!empty($row)) {
-        foreach ($row as $r) {
+        foreach ($row as $r) { 
+            
             if (!password_verify($password, $r['password'])) {
+                echo "<br>";
+                var_dump($r);
+                echo "wrong password";
                 header("Location: ../auth/login.php");
             } else {
                 $_SESSION['first_name'] = $r['first_name'];

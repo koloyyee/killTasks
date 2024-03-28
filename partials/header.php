@@ -6,9 +6,10 @@ $uri = $_SERVER['REQUEST_URI'];
 $is_login = str_contains(strtolower($uri), "login");
 $is_register = str_contains(strtolower($uri), "register");
 
+
 if (!$is_login && !$is_register) {
   if (!isset($_SESSION['email'])) {
-    header("Location: ../public/auth/login.php");
+    header("Location: ../auth/login.php");
   }
 }
 

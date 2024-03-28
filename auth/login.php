@@ -5,7 +5,6 @@
  */
 # include("../partials/login_form.php");
 include_once("../config/pdo.php");
-
 ?>
 
 <?php include_once("../partials/header.php") ?>
