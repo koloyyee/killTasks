@@ -46,27 +46,31 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST') {
 
 ?>
 <?php include("../partials/header.php") ?>
+<section class="auth_page">
+  <div class="h-screen w-max bg-purple-800"></div>
+  <div>
 
-<form id="register_form" action='register.php' method='post'>
-  <label for='first_name'>First Name
-    <input type='text' name='first_name' id='first_name'>
-    <small class="err_msg"> <?= $first_name_err ?> </small>
-  </label>
-  <label for='last_name'>Last Name
-    <input type='text' name='last_name' id='last_name'>
-    <small class="err_msg"><?= $last_name_err ?></small>
-  </label>
-  <label for='email'> Email
-    <input type='email' name='email' id='email'>
-    <small class="err_msg"> <?= $email_err ?></small>
-  </label>
-  <label for='password'> Password
-    <input type='password' name='password' id='word'>
-    <small class="err_msg"><?= $password_err ?></small>
-  </label>
-  <button type='submit'>Register</button>
-  <button type='reset'>Reset</button>
-</form>
-<a href='./login.php'> Got an account? Login!</a>
-
+    <form class="auth_form" action='register.php' method='post'>
+      <label for='first_name'>First Name
+        <input type='text' name='first_name' id='first_name'>
+        <small class="err_msg"> <?= $first_name_err ?> </small>
+      </label>
+      <label for='last_name'>Last Name
+        <input type='text' name='last_name' id='last_name'>
+        <small class="err_msg"><?= $last_name_err ?></small>
+      </label>
+      <label for='email'> Email
+        <input type='email' name='email' id='email'>
+        <small class="err_msg"> <?= $email_err ?></small>
+      </label>
+      <label for='password'> Password
+        <input type='password' name='password' id='word'>
+        <small class="err_msg"><?= $password_err ?></small>
+      </label>
+      <button type='submit' class="bg-blue-200">Register</button>
+      <button type='reset'>Reset</button>
+    </form>
+    <a href='./login.php'> Got an account? Login!</a>
+  </div>
+</section>
 <?php include("../partials/footer.php") ?>

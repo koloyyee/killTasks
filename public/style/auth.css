@@ -1,7 +1,9 @@
-#register_form {
-  display: flex;
-  flex-direction: column;
+.auth_page{
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  height: 100%;
 }
+
 
 .err_msg {
   color: red;
