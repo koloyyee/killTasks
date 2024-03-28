@@ -4,9 +4,16 @@ declare(strict_types=1);
 session_start();
 include("../config/pdo.php");
 
-  $uri = $_SERVER['REQUEST_URI'];
-  $is_login=str_contains(strtolower($uri), "login");
-  $is_register=str_contains(strtolower($uri), "register");
+$uri = $_SERVER['REQUEST_URI'];
+$is_login = str_contains(strtolower($uri), "login");
+$is_register = str_contains(strtolower($uri), "register");
+var_dump($_SESSION);
+
+if (!$is_login && !$is_register) {
+  if (!isset($_SESSION['email'])) {
+    header("Location: ../auth/login.php");
+  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,6 +28,6 @@ include("../config/pdo.php");
 </head>
 
 <body>
-  <?php if (!$is_login  &&  !$is_register ) : ?>
+  <?php if (!$is_login  &&  !$is_register) : ?>
     <?php include("../partials/nav.php") ?>
   <?php endif ?>

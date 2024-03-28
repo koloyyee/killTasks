@@ -3,7 +3,7 @@
 /***
  * login.php the file to handle login
  */
-include ("../partials/login_form.php")
+include ("../partials/login_form.php");
 ?>
 
 <?php include("../inc/header.php") ?>
