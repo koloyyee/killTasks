@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 include_once("../utils/checkers.php");
+
 class Response
 {
   public bool $success;
