@@ -16,7 +16,7 @@ if (isset($_SESSION['session_id'])) {
 ?>
 
 <nav>
-  <ul class="nav_item">
+  <ul class="nav_item flex gap-5">
     <?php foreach ($items as $li => $link) : ?>
       <li><a href="<?php echo $link ?>"><?php echo $li ?></a></li>
     <?php endforeach; ?>
