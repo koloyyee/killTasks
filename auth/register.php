@@ -47,28 +47,28 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST') {
 ?>
 <?php include("../partials/header.php") ?>
 <section class="auth_page">
-  <div class="h-screen w-max bg-purple-800"></div>
-  <div>
-
-    <form class="auth_form" action='register.php' method='post'>
+  <div class="bg-gradient-to-r from-blue-200 col-span-6 h-[95vh]"></div>
+  <div class="md:w-1/2 w-max col-start-8 col-end-12 justify-self-center content-center">
+    <form class="flex flex-col" action='register.php' method='post'>
       <label for='first_name'>First Name
-        <input type='text' name='first_name' id='first_name'>
-        <small class="err_msg"> <?= $first_name_err ?> </small>
       </label>
+      <input type='text' name='first_name' id='first_name'>
+      <small class="err_msg"> <?= $first_name_err ?> </small>
       <label for='last_name'>Last Name
-        <input type='text' name='last_name' id='last_name'>
-        <small class="err_msg"><?= $last_name_err ?></small>
       </label>
+      <input type='text' name='last_name' id='last_name'>
+      <small class="err_msg"><?= $last_name_err ?></small>
       <label for='email'> Email
-        <input type='email' name='email' id='email'>
-        <small class="err_msg"> <?= $email_err ?></small>
       </label>
+      <input type='email' name='email' id='email'>
+      <small class="err_msg"> <?= $email_err ?></small>
       <label for='password'> Password
-        <input type='password' name='password' id='word'>
-        <small class="err_msg"><?= $password_err ?></small>
       </label>
-      <button type='submit' class="bg-blue-200">Register</button>
-      <button type='reset'>Reset</button>
+      <input type='password' name='password' id='word'>
+      <small class="err_msg"><?= $password_err ?></small>
+
+      <button type='submit' class="mt-5 bg-blue-200">Register</button>
+      <button type='reset' class="mt-2 bg-red-200">Reset</button>
     </form>
     <a href='./login.php'> Got an account? Login!</a>
   </div>

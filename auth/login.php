@@ -11,7 +11,7 @@ include_once("../config/pdo.php");
 <?php if ($conn) : ?>
     <section class="auth_page">
         <div class="bg-gradient-to-r from-blue-200 col-span-6 h-[95vh]"></div>
-    <div class="auth_form md:w-1/2 w-max col-start-8 col-end-12 justify-self-center content-center">
+    <div class="md:w-1/2 w-max col-start-8 col-end-12 justify-self-center content-center">
             <form class=" flex flex-col " action='../service/login.php' method='POST'>
                 <label for='email'>Email</label>
                 <input type='text' name='email' id='email' require>
