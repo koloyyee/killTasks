@@ -33,30 +33,35 @@ class TaskService
       JOIN category c ON
       c.category_id = t.category_id;
     ";
-    $statement = $this->pdo->prepare($sql);
-    $statement->execute();
-    $result =  $statement->fetchAll(PDO::FETCH_ASSOC);
+    try {
 
-    $tasks = [];
-    if (!empty($result)) {
-      foreach ($result as $row) {
-        $task = new Task(
-          $row['task_id'],
-          $row['task_name'],
-          $row['task_description'],
-          $row['status_name'],
-          $row['first_name'],
-          $row['last_name'],
-          $row['category_name'],
-          $row['team_name'],
-          $row['start_date'],
-          $row['due_date'],
-          $row['created_at'],
-          $row['updated_at']
-        );
-        array_push($tasks, $task);
+      $statement = $this->pdo->prepare($sql);
+      $statement->execute();
+      $result =  $statement->fetchAll(PDO::FETCH_ASSOC);
+
+      $tasks = [];
+      if (!empty($result)) {
+        foreach ($result as $row) {
+          $task = new Task(
+            $row['task_id'],
+            $row['task_name'],
+            $row['task_description'],
+            $row['status_name'],
+            $row['category_name'],
+            $row['first_name'],
+            $row['last_name'],
+            $row['team_name'],
+            $row['start_date'],
+            $row['due_date'],
+            $row['created_at'],
+            $row['updated_at']
+          );
+          array_push($tasks, $task);
+        }
+        return $tasks;
       }
-      return $tasks;
+    } catch (PDOException $e) {
+      echo $e->getMessage();
     }
   }
   public function get_task_by_id(int $task_id): Task
@@ -79,7 +84,7 @@ class TaskService
       JOIN team tm ON
       tm.team_id = t.team_id
       JOIN category c ON
-      c.category_id = t.category_id;
+      c.category_id = t.category_id
 
       WHERE t.task_id = :task_id;
     ";
@@ -115,6 +120,47 @@ class TaskService
           $result['updated_at']
         );
       }
+    } catch (PDOException $e) {
+      echo $e->getMessage();
+    }
+  }
+
+  function create_task(TaskDTO $task)
+  {
+    try {
+      $sql = "
+      INSERT INTO task (
+        task_name,
+        task_description,
+        status_id,
+        user_id,
+        team_id,
+        category_id,
+        start_date,
+        due_date
+      ) VALUES (
+        :task_name,
+        :task_description,
+        :status_id,
+        :user_id,
+        :team_id,
+        :category_id,
+        :start_date,
+        :due_date
+      );
+      ";
+
+      $stmt = $this->pdo->prepare($sql);
+      $stmt->bindParam(':status_id', $task->status_id, PDO::PARAM_INT);
+      $stmt->bindParam(':task_name', $task->task_name, PDO::PARAM_STR);
+      $stmt->bindParam(':task_description', $task->task_description, PDO::PARAM_STR);
+      $stmt->bindParam(':user_id', $task->user_id, PDO::PARAM_INT);
+      $stmt->bindParam(':team_id', $task->team_id, PDO::PARAM_INT);
+      $stmt->bindParam(':category_id', $task->category_id, PDO::PARAM_INT);
+      $stmt->bindParam(':start_date', $task->start_date, PDO::PARAM_STR);
+      $stmt->bindParam(':due_date', $task->due_date, PDO::PARAM_STR);
+
+      $stmt->execute();
     } catch (PDOException $e) {
       echo $e->getMessage();
     }
