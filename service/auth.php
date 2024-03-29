@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 include_once("../utils/checkers.php");
+include_once("../config/pdo.php");
 
-class Response
+class Response extends PdoDao
 {
   public bool $success;
   public string $message;
@@ -15,10 +16,9 @@ class Response
   }
 }
 
-class Auth
+class Auth 
 {
-
-  static function login(PDO $conn, string $email, string $password): Response
+  public static function login(PDO $conn, string $email, string $password): Response
   {
     session_start();
     $sql = "SELECT first_name, last_name, password FROM user WHERE email = '$email'";
@@ -33,11 +33,11 @@ class Auth
       $_SESSION['last_name'] = $user['last_name'];
       $_SESSION['session_id'] = session_create_id($user['first_name'] .  $user['last_name']);
       $_SESSION['email'] = $email;
-      return new Response(true, "Welcome back! $user[first_name] $user[last_name]");
+      return new Response(true, "OK");
     }
   }
 
-  static function register(PDO $conn, string $first_name, string $last_name, string $email, string $password): array
+  public static function register(PDO $conn, string $first_name, string $last_name, string $email, string $password): Response 
   {
     try {
       $sql = 'INSERT INTO user (first_name, last_name, email, password) VALUES (:first_name, :last_name, :email, :password)';

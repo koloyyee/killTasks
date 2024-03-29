@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 // youtube reference: https://www.youtube.com/watch?v=LC9GaXkdxF8
 /***
@@ -9,14 +10,16 @@ include_once("../config/pdo.php");
 include_once("../utils/checkers.php");
 include_once("../service/auth.php");
 
-$message ="";
+$message = "";
+$pdo = new PdoDao();
+$conn = $pdo->get_pdo();
 
 if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST') {
     $email = sanitize($_POST['email'], Input::email);
     $password = $_POST['password'];
     try {
-        $response= Auth::login($conn, $email, $password);
-        $message = $response->success ? "<p class='text-blue-500'> $response->message </p>" : "<p class='text-red-500'> $response->message </p>";
+        $response = Auth::login($conn, $email, $password);
+        $message = $response->success === false ?  "<p class='text-red-500'> $response->message </p>" : "";
         sleep(1);
         if ($response->success) {
             header("Location: ../private/dashboard.php");
