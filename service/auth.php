@@ -16,7 +16,7 @@ class Response extends PdoDao
   }
 }
 
-class Auth 
+class AuthService
 {
   public static function login(PDO $conn, string $email, string $password): Response
   {

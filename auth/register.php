@@ -33,7 +33,7 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST') {
   if (!empty($first_name) && !empty($last_name) && !empty($email) && !empty($password)) {
     $pdo = new PdoDao();
     $conn = $pdo->get_pdo();
-    $result = Auth::register($conn, $first_name, $last_name, $email, $password);
+    $result = AuthService::register($conn, $first_name, $last_name, $email, $password);
     if ($result['success']) {
       unset($first_name, $last_name, $email, $password);
       unset($first_name_err, $last_name_err, $email_err, $password_err);

@@ -17,11 +17,11 @@
 
   class PdoDao {
     private PDO $pdo;
-    protected static string $DB_HOST = "localhost";
-    protected static string $DB_USER = "admin"; // customer name and password
-    protected static string $DB_PASS = "admin";
-    protected static string $DB_NAME = "killtasks";
-    protected static string $DB_PORT = "3307"; // or 3306 the default port
+    private static string $DB_HOST = "localhost";
+    private static string $DB_USER = "admin"; // customer name and password
+    private static string $DB_PASS = "admin";
+    private static string $DB_NAME = "killtasks";
+    private static string $DB_PORT = "3307"; // or 3306 the default port
 
     function __construct() {
       $dns = "mysql:host=" . self::$DB_HOST . ";dbname=" . self::$DB_NAME . ";port=" . self::$DB_PORT;

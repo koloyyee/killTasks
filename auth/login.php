@@ -18,7 +18,7 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST') {
     $email = sanitize($_POST['email'], Input::email);
     $password = $_POST['password'];
     try {
-        $response = Auth::login($conn, $email, $password);
+        $response = AuthService::login($conn, $email, $password);
         $message = $response->success === false ?  "<p class='text-red-500'> $response->message </p>" : "";
         sleep(1);
         if ($response->success) {

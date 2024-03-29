@@ -6,6 +6,7 @@ enum Input
   case string;
   case email;
   case password;
+  case number;
 };
 
 function sanitize(string $input, Input $type) : string 
@@ -16,6 +17,8 @@ function sanitize(string $input, Input $type) : string
       return filter_var($input, FILTER_VALIDATE_EMAIL);
     case Input::password:
       return password_hash($input, PASSWORD_DEFAULT);
+    case Input::number:
+      return filter_var($input, FILTER_SANITIZE_NUMBER_INT);
     case Input::string:
     default:
       return filter_var($input, FILTER_SANITIZE_SPECIAL_CHARS);
