@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+include("../service/task.php");
 include("../service/status.php");
 include("../service/category.php");
 include("../service/team.php");
@@ -9,8 +10,13 @@ $page_name = "Dashboard";
 
 $pdo = new PdoDao();
 $conn = $pdo->get_pdo();
-$service = new TeamService($conn);
-$result =  $service->get_team_with_members();
+$service = new TaskService($conn);
+  $service->update_task(1, 2);
+$result = $service->get_task_by_id(1);
+echo "<pre>";
+var_dump($result);
+echo "</pre>";
+
 ?>
 
 <?php include("../partials/header.php") ?>
