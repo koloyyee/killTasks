@@ -11,9 +11,6 @@ $pdo = new PdoDao();
 $conn = $pdo->get_pdo();
 $service = new TeamService($conn);
 $result =  $service->get_team_with_members();
-echo "<pre>";
-print_r($result);
-echo "</pre>";
 ?>
 
 <?php include("../partials/header.php") ?>
