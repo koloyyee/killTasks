@@ -43,6 +43,7 @@ class UserDTO {
   public string $password;
   public ?int $role_id;
   public ?int $team_id;
+
   public function __construct(?int $user_id, string $first_name, string $last_name, string $email, string $password, ?int $role_id, ?int $team_id) {
     $this->user_id = $user_id;
     $this->first_name = $first_name;
