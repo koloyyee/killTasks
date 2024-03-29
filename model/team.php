@@ -1,6 +1,8 @@
 <?php
+declare(strict_types=1);
+include("user.php");
 
-class Team{
+class Team {
   private int $team_id;
   private string $team_name;
   private string $team_description;

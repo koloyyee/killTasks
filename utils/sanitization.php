@@ -9,7 +9,7 @@ enum Input
   case number;
 };
 
-function sanitize(string $input, Input $type) : string 
+function sanitize(string | int $input, Input $type) : string 
 {
   $input = trim($input);
   switch ($type) {

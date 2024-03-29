@@ -1,7 +1,6 @@
 <?php
 // youtube reference for php register: https://www.youtube.com/watch?v=LC9GaXkdxF8
   // The landing page with login.
-  var_dump($_SESSION);
 if(isset($_SESSION['user_id'])) {
     header("Location: private/dashboard.php");
 } else {
