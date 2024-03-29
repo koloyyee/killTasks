@@ -105,9 +105,9 @@ class TaskService
           $result['task_name'],
           $result['task_description'],
           $result['status_name'],
+          $result['category_name'],
           $result['first_name'],
           $result['last_name'],
-          $result['category_name'],
           $result['team_name'],
           $result['start_date'],
           $result['due_date'],
@@ -120,14 +120,33 @@ class TaskService
     }
   }
 
-  function update_task(int $task_id, int $status_id)
+  function update_task(TaskDTO $task)
   {
     try {
+      $sql = "
+      UPDATE task SET
+      task_name = :task_name,
+      task_description = :task_description,
+      status_id = :status_id,
+      user_id = :user_id,
+      team_id = :team_id,
+      category_id = :category_id,
+      start_date = :start_date,
+      due_date = :due_date
+      WHERE task_id = :task_id;
+      ";
 
-      $sql = "UPDATE task SET status_id = :status_id WHERE task_id = :task_id";
       $stmt = $this->pdo->prepare($sql);
-      $stmt->bindParam(':status_id', $status_id, PDO::PARAM_INT);
-      $stmt->bindParam(':task_id', $task_id, PDO::PARAM_INT);
+      $stmt->bindParam(':status_id', $task->status_id, PDO::PARAM_INT);
+      $stmt->bindParam(':task_id', $task->task_id, PDO::PARAM_INT);
+      $stmt->bindParam(':task_name', $task->task_name, PDO::PARAM_STR);
+      $stmt->bindParam(':task_description', $task->task_description, PDO::PARAM_STR);
+      $stmt->bindParam(':user_id', $task->user_id, PDO::PARAM_INT);
+      $stmt->bindParam(':team_id', $task->team_id, PDO::PARAM_INT);
+      $stmt->bindParam(':category_id', $task->category_id, PDO::PARAM_INT);
+      $stmt->bindParam(':start_date', $task->start_date, PDO::PARAM_STR);
+      $stmt->bindParam(':due_date', $task->due_date, PDO::PARAM_STR);
+
       $stmt->execute();
     } catch (PDOException $e) {
       echo $e->getMessage();
