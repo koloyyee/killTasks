@@ -15,8 +15,8 @@ class UserService
   {
     try {
       $sql = 'INSERT INTO user 
-      (first_name, last_name, email, password, role_id, team_id) 
-      VALUES (:first_name, :last_name, :email, :password, :role_id, :team_id)
+      (first_name, last_name, email, password) 
+      VALUES (:first_name, :last_name, :email, :password)
       ';
 
       $stmt = $this->conn->prepare($sql);
@@ -24,8 +24,6 @@ class UserService
       $stmt->bindParam(':last_name', $user->last_name, PDO::PARAM_STR);
       $stmt->bindParam(':email', $user->email, PDO::PARAM_STR);
       $stmt->bindParam(":password", $user->password, PDO::PARAM_STR);
-      $stmt->bindParam(":role_id", $user->role_id, PDO::PARAM_INT);
-      $stmt->bindParam(":team_id", $user->team_id, PDO::PARAM_INT);
       $stmt->execute();
       return new Response(true, "User registered successfully");
     } catch (PDOException $e) {
