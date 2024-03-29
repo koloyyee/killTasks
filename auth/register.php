@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 include_once("../config/pdo.php");
-include_once("../service/auth.php");
+include_once("../service/user.php");
+include_once("../model/user.php");
+include_once("../model/response.php");
 include_once("../utils/checkers.php");
 
 $first_name_err = $last_name_err = $email_err = $password_err = "";
@@ -34,14 +36,15 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST') {
     $pdo = new PdoDao();
     $conn = $pdo->get_pdo();
     $service = new UserService($conn);
-    $result = $service->create_user($conn, $first_name, $last_name, $email, $password);
-    if ($result['success']) {
+    $newUser = new UserDTO(null, $first_name, $last_name, $email, $password, null, null); // role_id = 2 (user), team_id = 1 (default team
+    $result = $service->create_user($newUser);
+    if ($result->success) {
       unset($first_name, $last_name, $email, $password);
       unset($first_name_err, $last_name_err, $email_err, $password_err);
       unset($_POST);
       header("Location: ./login.php");
     } else {
-      echo $result['message'];
+      echo $result->message;
     }
   }
 }

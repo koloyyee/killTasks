@@ -3,18 +3,7 @@
 declare(strict_types=1);
 include_once("../utils/checkers.php");
 include_once("../config/pdo.php");
-
-class Response extends PdoDao
-{
-  public bool $success;
-  public string $message;
-
-  public function __construct(bool $success, string $message)
-  {
-    $this->success = $success;
-    $this->message = $message;
-  }
-}
+include("../model/response.php");
 
 class AuthService
 {
@@ -47,10 +36,3 @@ class AuthService
     header("Location: ../auth/login.php");
   }
 }
-
-  function reason(string $err_msg)
-  {
-    if (str_contains($err_msg, "Duplicate entry")) {
-      return "Email already exists";
-    }
-  }

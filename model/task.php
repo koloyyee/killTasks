@@ -33,7 +33,7 @@ class Task
 }
 
 class TaskDTO {
-  public int |null $task_id;
+  public ?int  $task_id;
   public string $task_name;
   public string $task_description;
   public int $status_id;
@@ -42,7 +42,7 @@ class TaskDTO {
   public int $category_id;
   public string $start_date;
   public string $due_date;
-  public function __construct(int | null $task_id, string $task_name, string $task_description, int $status_id, int $user_id, int $team_id, int $category_id, string $start_date, string $due_date)
+  public function __construct(?int  $task_id, string $task_name, string $task_description, int $status_id, int $user_id, int $team_id, int $category_id, string $start_date, string $due_date)
   {
     $this->task_id = $task_id;
     $this->task_name = $task_name;
