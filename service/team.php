@@ -48,8 +48,8 @@ class TeamService
           $teams[$row['team_id']]->set_members(new User($row['user_id'], $row['first_name'], $row['last_name'], $row['email']));
         }
       }
+      return $teams;
     }
-    return $teams;
   }
 
   public function get_team_by_id(int $team_id): Team
