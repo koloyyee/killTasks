@@ -15,7 +15,7 @@ class TaskService
   {
     $sql = "
       SELECT 
-      t.task_name, t.task_description,
+      t.task_id, t.task_name, t.task_description,
       s.status_name, 
       u.first_name, u.last_name,
       c.category_name,
@@ -31,7 +31,10 @@ class TaskService
       JOIN team tm ON
       tm.team_id = t.team_id
       JOIN category c ON
-      c.category_id = t.category_id;
+      c.category_id = t.category_id
+      
+      WHERE t.deleted IS FALSE
+      ;
     ";
     try {
 
@@ -86,7 +89,10 @@ class TaskService
       JOIN category c ON
       c.category_id = t.category_id
 
-      WHERE t.task_id = :task_id;
+      WHERE t.task_id = :task_id
+      AND
+      t.deleted IS FALSE
+      ;
     ";
     try {
 
@@ -193,6 +199,23 @@ class TaskService
       $stmt->bindParam(':start_date', $task->start_date, PDO::PARAM_STR);
       $stmt->bindParam(':due_date', $task->due_date, PDO::PARAM_STR);
 
+      $stmt->execute();
+    } catch (PDOException $e) {
+      echo $e->getMessage();
+    }
+  }
+
+  function delete_task(int $task_id)
+  {
+    try {
+      $sql = "
+      UPDATE task SET
+      deleted = TRUE
+      WHERE task_id = :task_id;
+      ";
+
+      $stmt = $this->pdo->prepare($sql);
+      $stmt->bindParam(':task_id', $task_id, PDO::PARAM_INT);
       $stmt->execute();
     } catch (PDOException $e) {
       echo $e->getMessage();
