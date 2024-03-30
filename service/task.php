@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 include("../model/task.php");
+include("../model/response.php");
 
 class TaskService
 {
@@ -156,7 +157,11 @@ class TaskService
       $stmt->bindParam(':start_date', $task->get_start_date(), PDO::PARAM_STR);
       $stmt->bindParam(':due_date', $task->get_due_date(), PDO::PARAM_STR);
 
-      $stmt->execute();
+     if( $stmt->execute()) {
+      return new Response(true, "Task updated successfully");
+     } else {
+      return new Response(false, "Task update failed");
+     }
     } catch (PDOException $e) {
       echo $e->getMessage();
     }

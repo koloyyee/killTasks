@@ -60,10 +60,10 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST') {
   $pdo = new PdoDao();
   $conn = $pdo->get_pdo();
   $service = new TaskService($conn);
-  // var_dump($task);
-  // $service->update_task($task);
-
-  // header("Location: /private/index.php");
+  $resp = $service->update_task($task);
+  if ($resp) {
+    // header("Location: personal.php");
+  }
 }
 ?>
 <?php include("../partials/header.php") ?>
