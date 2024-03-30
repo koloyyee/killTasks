@@ -1,12 +1,10 @@
-
-window.onload = function() {
-  console.log("login.js is connected");
+document.addEventListener("DOMContentLoaded", () => {
   const loginValidate = {
     email: false,
     password: false,
   };
   validateLogin(loginValidate);
-}
+});
 
 function validateForm(validate) {
   const buttonDisabled = Object.entries(validate).every(
@@ -14,7 +12,6 @@ function validateForm(validate) {
   );
   const submitBtn = document.getElementById("submit");
   submitBtn.disabled = !buttonDisabled;
-  console.log(buttonDisabled);
 }
 
 function validateLogin(validate) {
@@ -39,9 +36,9 @@ function validateLogin(validate) {
         case "password":
           if (target.value.length < 1) {
             errMsg.innerHTML = "Cannot be empty";
-            validate.password= false;
+            validate.password = false;
           } else {
-            validate.password= true;
+            validate.password = true;
             errMsg.innerHTML = "";
             validateForm(validate);
           }

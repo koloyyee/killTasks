@@ -11,18 +11,18 @@ include_once("../utils/checkers.php");
 include_once("../service/auth.php");
 
 $email_err = $password_err = $result_msg = "";
-$email = $password= $message= "";
+$email = $password = $message = "";
 $pdo = new PdoDao();
 $conn = $pdo->get_pdo();
 
 if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST') {
 
-    if(validate($_POST['email'], Fields::email)){
+    if (validate($_POST['email'], Fields::email)) {
         $email = sanitize($_POST['email'], Input::email);
     } else {
         $email_err = "Email is required";
     }
-    if(validate($_POST['password'], Fields::password)){
+    if (validate($_POST['password'], Fields::password)) {
         $password = $_POST['password'];
     } else {
         $password_err = "Password is required";
@@ -45,17 +45,21 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST') {
 <?php include_once("../partials/header.php") ?>
 <?php if ($conn) : ?>
     <section class="auth_page">
-        <div class="bg-gradient-to-r from-blue-200 col-span-6 h-[95vh]"></div>
 
-        <div class="md:w-1/2 w-max col-start-8 col-end-12 justify-self-center content-center">
-            <form id="login_form" class=" flex flex-col " action='login.php' method='POST'>
-                <label for='email'>Email</label>
-                <input type='email' name='email' id='email'>
+        <div class="blue-bg bg-gradient-to-r from-blue-200 col-span-6 h-[95vh]"></div>
+        <div class="form-section md:w-1/2 w-max justify-content-md-center align-self-center">
+            <form id="login_form" class="d-flex flex-column " action='login.php' method='POST'>
+                <label class="form-label" for='email'>Email</label>
+                <input class="form-control" type='email' name='email' id='email'>
                 <small class="err_msg"> <?= $email_err ?></small>
-                <label for='password'>Password</label>
-                <input type='password' name='password' id='password'>
+                <label class="form-label" for='password'>Password</label>
+                <input class="form-control" type='password' name='password' id='password'>
                 <small class="err_msg"> <?= $password_err ?></small>
-                <button id="submit" type='submit' class="bg-blue-200 mt-5">Login</button>
+
+                <div class="d-flex">
+                    <button id="submit" type='submit' class="btn btn-primary p-2 w-50 m-2">Login</button>
+                    <button type='reset' class="btn btn-danger w-50 m-2">Reset</button>
+                </div>
             </form>
             <a href='register.php'>No account? Register!</a>
             <?= $message ?>

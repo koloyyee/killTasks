@@ -1,15 +1,13 @@
+document.addEventListener("DOMContentLoaded", (event) => {
+    const registerValidate = {
+      first_name: false,
+      last_name: false,
+      email: false,
+      password: false,
+    };
+      validateRegister(registerValidate);
+});
 
-
-window.onload = function() {
-  console.log("register.js is connected");
-  const registerValidate = {
-    first_name: false,
-    last_name: false,
-    email: false,
-    password: false,
-  };
-  validateRegister(registerValidate);
-}
 
 function validateForm(validate) {
   const buttonDisabled = Object.entries(validate).every(
@@ -17,7 +15,6 @@ function validateForm(validate) {
   );
   const submitBtn = document.getElementById("submit");
   submitBtn.disabled = !buttonDisabled;
-  console.log(buttonDisabled);
 }
 
 function validateRegister(validate) {
