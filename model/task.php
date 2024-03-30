@@ -1,17 +1,17 @@
 <?php
 class Task
 {
-  private ?int $task_id;
-  private string $task_name;
-  private string $task_description;
-  private string $user_email;
-  private ?string $category;
-  private string $status;
-  private ?string $team;
-  private string $created_at;
-  private ?string $updated_at;
-  private ?string $start_date;
-  private ?string $due_date;
+  public ?int $task_id;
+  public string $task_name;
+  public string $task_description;
+  public string $user_email;
+  public ?string $category;
+  public string $status;
+  public ?string $team;
+  public string $created_at;
+  public ?string $updated_at;
+  public ?string $start_date;
+  public ?string $due_date;
 
   function __construct(?int $task_id, string $task_name, string $task_description, string $user_email, ?string $category, string $status,  ?string $team, ?string $start_date, ?string $due_date, ?string $created_at = null, ?string $updated_at = null)
   {

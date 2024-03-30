@@ -1,16 +1,12 @@
 "use strict";
-
-function handleOnChange(form) {}
-
-function checkInput(event, form) {
-  event.preventDefault();
-  console.log(form);
-  const name = form.querySelector("#first_name");
-  console.log(name.value);
-  const formData = new FormData(form);
-  for (const [key, value] of formData.entries()) {
-    console.log(key, value);
-  }
-}
-
-export { checkInput };
+console.log("auth.js is connected");
+const registerValidate = {
+  first_name: false,
+  last_name: false,
+  email: false,
+  password: false,
+};
+const loginValidate = {
+  email: false,
+};
+export { validateRegister, validateLogin}

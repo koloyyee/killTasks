@@ -14,11 +14,8 @@ $service = new TaskService($conn);
 // $service->delete_task(3);
 $result =  $service->get_tasks();
 
-echo "<pre>";
-var_dump($result);
-echo "</pre>";
-
 ?>
+
 
 <?php include("../partials/header.php") ?>
 <?= $page_name ?>

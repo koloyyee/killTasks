@@ -10,10 +10,14 @@ $conn = $pdo->get_pdo();
 $task_service = new TaskService($conn);
 $tasks =  $task_service->get_tasks();
 
-// var_dump($_GET['task_id']);
+if (strtoupper($_SERVER['REQUEST_METHOD']) === 'GET') {
+  if (isset($_GET['task_id'])) {
+    var_dump($_GET);
+  }
+}
 
 ?>
-<table class="tasks_table" >
+<table class="tasks_table">
   <thead>
     <tr>
       <th>Task Name</th>
@@ -40,11 +44,10 @@ $tasks =  $task_service->get_tasks();
         <td><?php echo $task->get_team() ?? "" ?></td>
         <td><?php echo $task->get_start_date() ?? "" ?></td>
         <td><?php echo $task->get_due_date() ?? "" ?></td>
-        <td> <a href=<?= "../partials/tasks.php?task_id=" . $task->get_task_id() ?> >Completed </a></td>
-        <td> <a href="../private/task_update.php" > Update Task </a></td>
-        <td> <button>Delete Task</button></td>
+        <td> <a href=<?= "../private/personal.php?task_id=" . $task->get_task_id() . "&method=completed"; ?>>Completed </a></td>
+        <td> <a href="../private/task_update.php"> Update Task </a></td>
+        <td> <a href=<?= "../private/personal.php?task_id=" . $task->get_task_id() . "&method=delete"; ?>>Delete Task</a></td>
       </tr>
     <?php endforeach; ?>
   </tbody>
 </table>
-

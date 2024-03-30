@@ -7,26 +7,26 @@ include_once("../model/user.php");
 include_once("../model/response.php");
 include_once("../utils/checkers.php");
 
-$first_name_err = $last_name_err = $email_err = $password_err = "";
+$first_name_err = $last_name_err = $email_err = $password_err = $result_msg = "";
 $first_name = $last_name = $email = $password = "";
 
 if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST') {
-  if (validate($_POST['first_name'], RegisterFields::first_name)) {
+  if (validate($_POST['first_name'], Fields::first_name)) {
     $first_name = sanitize($_POST['first_name'], Input::string);
   } else {
     $first_name_err = "First name is required";
   }
-  if (validate($_POST['last_name'], RegisterFields::last_name)) {
+  if (validate($_POST['last_name'], Fields::last_name)) {
     $last_name = sanitize($_POST['last_name'], Input::string);
   } else {
     $last_name_err = "Last name is required";
   }
-  if (validate($_POST['email'], RegisterFields::email)) {
+  if (validate($_POST['email'], Fields::email)) {
     $email = sanitize($_POST['email'], Input::email);
   } else {
     $email_err = "Email is required";
   }
-  if (validate($_POST['password'], RegisterFields::password)) {
+  if (validate($_POST['password'], Fields::password)) {
     $password = sanitize($_POST['password'], Input::password);
   } else {
     $password_err = "Password is required";
@@ -44,7 +44,7 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST') {
       unset($_POST);
       header("Location: ./login.php");
     } else {
-      echo $result->message;
+      $result_msg = $result->message;
     }
   }
 }
@@ -55,7 +55,8 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST') {
 <section class="auth_page">
   <div class="bg-gradient-to-r from-blue-200 col-span-6 h-[95vh]"></div>
   <div class="md:w-1/2 w-max col-start-8 col-end-12 justify-self-center content-center">
-    <form class="flex flex-col" action='register.php' method='post'>
+    <p class="err_msg"><?= $result_msg ?></p>
+    <form id="register_form" class=" flex flex-col" action='register.php' method='post'>
       <label for='first_name'>First Name
       </label>
       <input type='text' name='first_name' id='first_name'>
@@ -70,13 +71,14 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST') {
       <small class="err_msg"> <?= $email_err ?></small>
       <label for='password'> Password
       </label>
-      <input type='password' name='password' id='word'>
+      <input type='password' name='password' id='password'>
       <small class="err_msg"><?= $password_err ?></small>
 
-      <button type='submit' class="mt-5 bg-blue-200">Register</button>
+      <button id="submit" type='submit' class="mt-5 bg-blue-200">Register</button>
       <button type='reset' class="mt-2 bg-red-200">Reset</button>
     </form>
     <a href='./login.php'> Got an account? Login!</a>
   </div>
 </section>
+<script type="module" src="../public/js/register.js" defer></script>
 <?php include("../partials/footer.php") ?>

@@ -17,16 +17,15 @@ class UserService
       (first_name, last_name, email, password) 
       VALUES (:first_name, :last_name, :email, :password)
       ';
-
       $stmt = $this->conn->prepare($sql);
-      $stmt->bindParam(':first_name', $user->get_first_name(), PDO::PARAM_STR);
-      $stmt->bindParam(':last_name', $user->get_last_name(), PDO::PARAM_STR);
-      $stmt->bindParam(':email', $user->get_email(), PDO::PARAM_STR);
-      $stmt->bindParam(":password", $user->get_password(), PDO::PARAM_STR);
+      $stmt->bindParam(':first_name', $user->first_name, PDO::PARAM_STR);
+      $stmt->bindParam(':last_name', $user->last_name, PDO::PARAM_STR);
+      $stmt->bindParam(':email', $user->email, PDO::PARAM_STR);
+      $stmt->bindParam(":password", $user->password, PDO::PARAM_STR);
       $stmt->execute();
       return new Response(true, "User registered successfully");
     } catch (PDOException $e) {
-      return new Response(false, $e->getMessage());
+      return new Response(false, reason($e->getMessage()));
     }
   }
 

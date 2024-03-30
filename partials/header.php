@@ -1,7 +1,9 @@
 <?php
 
 declare(strict_types=1);
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 $uri = $_SERVER['REQUEST_URI'];
 $is_login = str_contains(strtolower($uri), "login");
 $is_register = str_contains(strtolower($uri), "register");
@@ -12,6 +14,22 @@ if (!$is_login && !$is_register) {
     header("Location: ../auth/login.php");
   }
 }
+
+$items = [
+  'Dashboard' => '../private/dashboard.php',
+  'Personal' => '../private/personal.php',
+  'Settings' => '../private/settings.php',
+  'Login' => '../auth/login.php',
+  'Logout' => '../auth/logout.php'
+];
+if (isset($_SESSION['session_id'])) {
+  unset($items['Login']);
+} else {
+  unset($items['Logout']);
+}
+if (isset($_SESSION['first_name']) && isset($_SESSION['last_name'])) {
+  $welcome = "Welcome back! " . $_SESSION['first_name'] . " " . $_SESSION['last_name'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,12 +38,22 @@ if (!$is_login && !$is_register) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta author="Durra, Candice, David">
-  <title><?= $title ?? 'KillTasks: Stay Ahead' ?></title>
+  <title><?= 'KillTasks: Stay Ahead' ?></title>
   <link rel="stylesheet" href="../public/style/global.css">
-  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 
 <body>
   <?php if (!$is_login  &&  !$is_register) : ?>
-    <?php include( dirname(__FILE__ ). "/nav.php") ?>
+
+    <nav class="flex justify-between px-5">
+      <ul class="nav_item flex gap-5">
+        <?php foreach ($items as $li => $link) : ?>
+          <li><a href="<?php echo $link ?>"><?php echo $li ?></a></li>
+        <?php endforeach; ?>
+      </ul>
+      <div>
+        <?= $welcome ?>
+      </div>
+    </nav>
   <?php endif ?>
