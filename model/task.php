@@ -8,7 +8,7 @@ class Task
   public ?string $category;
   public string $status;
   public ?string $team;
-  public string $created_at;
+  public ?string $created_at;
   public ?string $updated_at;
   public ?string $start_date;
   public ?string $due_date;

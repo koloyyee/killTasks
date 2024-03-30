@@ -5,13 +5,17 @@ enum Fields {
   case last_name;
   case email;
   case password;
+  case number;
 }
 
 function validate(string $input, Fields $field): bool
 {
   $email_regex= "/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/";
-  $input = trim($input);
+
+  $input = is_numeric($input) ? $input : trim($input);
   switch($field) {
+    case Fields::number:
+      return $input> 0;
     case Fields::email:
       return !empty($input) && preg_match($email_regex, $input);
     case Fields::password:
