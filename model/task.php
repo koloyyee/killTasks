@@ -77,9 +77,13 @@ class Task
   {
     return $this->due_date;
   }
-  
+
 }
 
+/*
+ * DTO: Data Transfer Object 
+ * 
+ */
 class TaskDTO {
   public ?int  $task_id;
   public string $task_name;
