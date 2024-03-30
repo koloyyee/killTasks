@@ -14,7 +14,7 @@ class TaskService
   public function get_tasks()
   {
     try {
-      $sql= "SELECT * FROM task t";
+      $sql= "SELECT * FROM task t order by status desc , created_at";
 
       $statement = $this->pdo->prepare($sql);
       $statement->execute();
@@ -108,6 +108,23 @@ class TaskService
       $stmt->execute();
 
 
+    } catch (PDOException $e) {
+      echo $e->getMessage();
+    }
+  }
+
+  function update_status(int $task_id, string $status)
+  {
+    try {
+      $sql = " UPDATE task SET
+      status = :status
+      WHERE task_id = :task_id;
+      ";
+
+      $stmt = $this->pdo->prepare($sql);
+      $stmt->bindParam(':task_id', $task_id, PDO::PARAM_INT);
+      $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+      $stmt->execute();
     } catch (PDOException $e) {
       echo $e->getMessage();
     }
