@@ -29,7 +29,55 @@ class Task
     $this->created_at = $created_at;
     $this->updated_at = $updated_at;
   }
-
+  public function get_task_id(): int
+  {
+    return $this->task_id;
+  }
+  public function get_task_name(): string
+  {
+    return $this->task_name;
+  }
+  public function get_task_description(): string
+  {
+    return $this->task_description;
+  }
+  public function get_user_first_name(): string
+  {
+    return $this->user_first_name;
+  }
+  public function get_user_last_name(): string
+  {
+    return $this->user_last_name;
+  }
+  public function get_team_name(): string | null
+  {
+    return $this->team_name;
+  }
+  public function get_status(): string
+  {
+    return $this->status;
+  }
+  public function get_category(): string | null
+  {
+    return $this->category;
+  }
+  public function get_created_at(): string
+  {
+    return $this->created_at;
+  }
+  public function get_updated_at(): string
+  {
+    return $this->updated_at;
+  }
+  public function get_start_date(): string
+  {
+    return $this->start_date;
+  }
+  public function get_due_date(): string
+  {
+    return $this->due_date;
+  }
+  
 }
 
 class TaskDTO {

@@ -133,42 +133,58 @@ class TaskService
 
   function create_task(TaskDTO $task)
   {
+    $this->pdo->beginTransaction();
     try {
       $sql = "
       INSERT INTO task (
         task_name,
         task_description,
-        status_id,
-        user_id,
-        team_id,
-        category_id,
         start_date,
         due_date
       ) VALUES (
         :task_name,
         :task_description,
-        :status_id,
-        :user_id,
-        :team_id,
-        :category_id,
         :start_date,
         :due_date
       );
       ";
 
       $stmt = $this->pdo->prepare($sql);
-      $stmt->bindParam(':status_id', $task->status_id, PDO::PARAM_INT);
       $stmt->bindParam(':task_name', $task->task_name, PDO::PARAM_STR);
       $stmt->bindParam(':task_description', $task->task_description, PDO::PARAM_STR);
-      $stmt->bindParam(':user_id', $task->user_id, PDO::PARAM_INT);
-      $stmt->bindParam(':team_id', $task->team_id, PDO::PARAM_INT);
-      $stmt->bindParam(':category_id', $task->category_id, PDO::PARAM_INT);
       $stmt->bindParam(':start_date', $task->start_date, PDO::PARAM_STR);
       $stmt->bindParam(':due_date', $task->due_date, PDO::PARAM_STR);
-
       $stmt->execute();
+
+      $task_id = $this->pdo->lastInsertId();
+      $sql = "INSERT INTO task_category (task_id, category_id) VALUES (:task_id, :category_id);";
+      $stmt = $this->pdo->prepare($sql);
+      $stmt->bindParam(':task_id', $task_id, PDO::PARAM_INT);
+      $stmt->bindParam(':category_id', $task->category_id, PDO::PARAM_INT);
+      $stmt->execute();
+
+      $sql = "INSERT INTO task_user (task_id, user_id) VALUES (:task_id, :user_id);";
+      $stmt = $this->pdo->prepare($sql);
+      $stmt->bindParam(':task_id', $task_id, PDO::PARAM_INT);
+      $stmt->bindParam(':user_id', $task->user_id, PDO::PARAM_INT);
+      $stmt->execute();
+
+      $sql = "INSERT INTO task_team (task_id, team_id) VALUES (:task_id, :team_id);";
+      $stmt = $this->pdo->prepare($sql);
+      $stmt->bindParam(':task_id', $task_id, PDO::PARAM_INT);
+      $stmt->bindParam(':team_id', $task->team_id, PDO::PARAM_INT);
+      $stmt->execute();
+
+      $sql = "INSERT INTO task_status(task_id, status_id) VALUES (:task_id, :status_id);";
+      $stmt = $this->pdo->prepare($sql);
+      $stmt->bindParam(':task_id', $task_id, PDO::PARAM_INT);
+      $stmt->bindParam(':status_id', $task->status_id, PDO::PARAM_INT);
+      $stmt->execute();
+
+      $this->pdo->commit();
     } catch (PDOException $e) {
-      echo $e->getMessage();
+      $this->pdo->rollBack();
+      throw $e->getMessage();
     }
   }
 

@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 include("../model/user.php");
 include("../model/response.php");
