@@ -1,0 +1,15 @@
+.create_task_form {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.tasks_table, thead, td, tr, th{
+
+  margin: 2rem;
+  padding: 1rem;
+  border-collapse: collapse;
+  /* width: 100%; */
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}

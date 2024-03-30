@@ -9,11 +9,11 @@ class Task
   private string $status;
   private ?string $team;
   private string $created_at;
-  private string $updated_at;
+  private ?string $updated_at;
   private ?string $start_date;
   private ?string $due_date;
 
-  function __construct(?int $task_id, string $task_name, string $task_description, string $user_email, string | null $category, string $status,  string | null $team, ?string $start_date, ?string $due_date, ?string $created_at = null, ?string $updated_at = null)
+  function __construct(?int $task_id, string $task_name, string $task_description, string $user_email, ?string $category, string $status,  ?string $team, ?string $start_date, ?string $due_date, ?string $created_at = null, ?string $updated_at = null)
   {
     $this->task_id = $task_id;
     $this->task_name = $task_name;
@@ -60,15 +60,15 @@ class Task
   {
     return $this->created_at;
   }
-  public function get_updated_at(): string
+  public function get_updated_at(): string | null
   {
     return $this->updated_at;
   }
-  public function get_start_date(): string
+  public function get_start_date(): string | null
   {
     return $this->start_date;
   }
-  public function get_due_date(): string
+  public function get_due_date(): string | null
   {
     return $this->due_date;
   }

@@ -12,7 +12,6 @@ if (!$is_login && !$is_register) {
     header("Location: ../auth/login.php");
   }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,5 +27,5 @@ if (!$is_login && !$is_register) {
 
 <body>
   <?php if (!$is_login  &&  !$is_register) : ?>
-    <?php include(__DIR__ . "/nav.php") ?>
+    <?php include( dirname(__FILE__ ). "/nav.php") ?>
   <?php endif ?>
