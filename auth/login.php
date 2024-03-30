@@ -40,9 +40,9 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST') {
         <div class="md:w-1/2 w-max col-start-8 col-end-12 justify-self-center content-center">
             <form class=" flex flex-col " action='login.php' method='POST'>
                 <label for='email'>Email</label>
-                <input type='text' name='email' id='email' require>
+                <input type='text' name='email' id='email' >
                 <label for='password'>Password</label>
-                <input type='password' name='password' id='password' required>
+                <input type='password' name='password' id='password' >
                 <button type='submit' class="bg-blue-200 mt-5">Login</button>
             </form>
             <a href='register.php'>No account? Register!</a>

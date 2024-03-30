@@ -10,7 +10,7 @@ class UserService
   {
     $this->conn = $pdo;
   }
-  public function create_user(UserDTO $user): Response
+  public function create_user(User $user): Response
   {
     try {
       $sql = 'INSERT INTO user 
@@ -19,10 +19,10 @@ class UserService
       ';
 
       $stmt = $this->conn->prepare($sql);
-      $stmt->bindParam(':first_name', $user->first_name, PDO::PARAM_STR);
-      $stmt->bindParam(':last_name', $user->last_name, PDO::PARAM_STR);
-      $stmt->bindParam(':email', $user->email, PDO::PARAM_STR);
-      $stmt->bindParam(":password", $user->password, PDO::PARAM_STR);
+      $stmt->bindParam(':first_name', $user->get_first_name(), PDO::PARAM_STR);
+      $stmt->bindParam(':last_name', $user->get_last_name(), PDO::PARAM_STR);
+      $stmt->bindParam(':email', $user->get_email(), PDO::PARAM_STR);
+      $stmt->bindParam(":password", $user->get_password(), PDO::PARAM_STR);
       $stmt->execute();
       return new Response(true, "User registered successfully");
     } catch (PDOException $e) {
@@ -33,13 +33,8 @@ class UserService
   public function get_user_by_email(string $email): User | null
   {
     $sql = " SELECT 
-    u.user_id, u.first_name, u.last_name, u.email, u.password,
-    r.role_name,
-    t.team_name
-     FROM 
-    user u
-    JOIN role r ON u.role_id = r.role_id
-    JOIN team t ON u.team_id = t.team_id
+    *
+    FROM user
     WHERE email = :email";
     try {
 
@@ -53,6 +48,7 @@ class UserService
           $result['first_name'],
           $result['last_name'],
           $result['email'],
+          $result['password'],
           $result['role_name'],
           $result['team_name']
         );
@@ -66,14 +62,9 @@ class UserService
   public function get_users()
   {
     $users = [];
-    $sql = "SELECT 
-    u.user_id, u.first_name, u.last_name, u.email, u.password,
-    r.role_name,
-    t.team_name
-     FROM 
-    user u
-    JOIN role r ON u.role_id = r.role_id
-    JOIN team t ON u.team_id = t.team_id";
+    $sql = "SELECT
+      * FROM user 
+     ";
     try {
 
       $stmt = $this->conn->prepare($sql);
@@ -85,8 +76,9 @@ class UserService
           $row['first_name'],
           $row['last_name'],
           $row['email'],
-          $row['role_name'],
-          $row['team_name']
+          $row['password'],
+          $row['role'],
+          $row['team']
         );
         array_push($users, $user);
       }
@@ -96,24 +88,24 @@ class UserService
     }
   }
   //-------------------- TO BE TESTED! -------------------------
-  public function update_role(int $role_id)
+  public function update_role(string $role)
   {
-    $sql = "UPDATE user SET role_id = :role_id WHERE user_id = :user_id";
+    $sql = "UPDATE user SET role = :role WHERE user_id = :user_id";
     try {
       $stmt = $this->conn->prepare($sql);
-      $stmt->bindParam(':role_id', $role_id, PDO::PARAM_INT);
+      $stmt->bindParam(':role', $role, PDO::PARAM_INT);
       $stmt->execute();
       return new Response(true, "Role updated successfully");
     } catch (PDOException $e) {
       return new Response(false, $e->getMessage());
     }
   }
-  public function update_team(?int $team_id)
+  public function update_team(string $team)
   {
-    $sql = "UPDATE user SET team_id = :team_id WHERE user_id = :user_id";
+    $sql = "UPDATE user SET team = :team WHERE user_id = :user_id";
     try {
       $stmt = $this->conn->prepare($sql);
-      $stmt->bindParam(':team_id', $team_id, PDO::PARAM_INT);
+      $stmt->bindParam(':team', $team, PDO::PARAM_INT);
       $stmt->execute();
       return new Response(true, "Team updated successfully");
     } catch (PDOException $e) {
@@ -133,24 +125,24 @@ class UserService
     }
   }
 
-  public function update_user(UserDTO $user)
+  public function update_user(User $user)
   {
     $sql = "UPDATE user SET 
     first_name = :first_name, 
     last_name = :last_name, 
     email = :email, 
     password = :password, 
-    role_id = :role_id, 
-    team_id = :team_id
+    role = :role, 
+    team = :team
     WHERE user_id = :user_id";
     try {
       $stmt = $this->conn->prepare($sql);
-      $stmt->bindParam(':first_name', $user->first_name, PDO::PARAM_STR);
-      $stmt->bindParam(':last_name', $user->last_name, PDO::PARAM_STR);
-      $stmt->bindParam(":email", $user->email, PDO::PARAM_STR);
-      $stmt->bindParam(":password", $user->password, PDO::PARAM_STR);
-      $stmt->bindParam(":role_id", $user->role_id, PDO::PARAM_INT);
-      $stmt->bindParam(":team_id", $user->team_id, PDO::PARAM_INT);
+      $stmt->bindParam(':first_name', $user->get_first_name(), PDO::PARAM_STR);
+      $stmt->bindParam(':last_name', $user->get_last_name(), PDO::PARAM_STR);
+      $stmt->bindParam(":email", $user->get_email(), PDO::PARAM_STR);
+      $stmt->bindParam(":password", $user->get_password(), PDO::PARAM_STR);
+      $stmt->bindParam(":role", $user->get_role(), PDO::PARAM_INT);
+      $stmt->bindParam(":team", $user->get_team(), PDO::PARAM_INT);
 
       $stmt->execute();
       return new Response(true, "User updated successfully");

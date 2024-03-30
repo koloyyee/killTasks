@@ -36,7 +36,7 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST') {
     $pdo = new PdoDao();
     $conn = $pdo->get_pdo();
     $service = new UserService($conn);
-    $newUser = new UserDTO(null, $first_name, $last_name, $email, $password, null, null); 
+    $newUser = new User(null, $first_name, $last_name, $email, $password); 
     $result = $service->create_user($newUser);
     if ($result->success) {
       unset($first_name, $last_name, $email, $password);

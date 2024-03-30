@@ -13,30 +13,8 @@ class TaskService
   }
   public function get_tasks()
   {
-    $sql = "
-      SELECT 
-      t.task_id, t.task_name, t.task_description,
-      s.status_name, 
-      u.first_name, u.last_name,
-      c.category_name,
-      tm.team_name,
-      t.start_date, t.due_date,
-      t.created_at, t.updated_at
-
-      FROM task t
-      JOIN status s ON 
-      s.status_id = t.status_id
-      JOIN user u ON
-      u.user_id = t.user_id
-      JOIN team tm ON
-      tm.team_id = t.team_id
-      JOIN category c ON
-      c.category_id = t.category_id
-      
-      WHERE t.deleted IS FALSE
-      ;
-    ";
     try {
+      $sql= "SELECT * FROM task t";
 
       $statement = $this->pdo->prepare($sql);
       $statement->execute();
@@ -49,11 +27,10 @@ class TaskService
             $row['task_id'],
             $row['task_name'],
             $row['task_description'],
-            $row['status_name'],
-            $row['category_name'],
-            $row['first_name'],
-            $row['last_name'],
-            $row['team_name'],
+            $row['email'],
+            $row['category'],
+            $row['status'],
+            $row['team'],
             $row['start_date'],
             $row['due_date'],
             $row['created_at'],
@@ -69,29 +46,11 @@ class TaskService
   }
   public function get_task_by_id(int $task_id): Task
   {
-    $sql = "
-      SELECT 
-      t.task_id, t.task_name, t.task_description,
-      s.status_name, 
-      u.first_name, u.last_name,
-      c.category_name,
-      tm.team_name,
-      t.start_date, t.due_date,
-      t.created_at, t.updated_at
-
-      FROM task t
-      JOIN status s ON 
-      s.status_id = t.status_id
-      JOIN user u ON
-      u.user_id = t.user_id
-      JOIN team tm ON
-      tm.team_id = t.team_id
-      JOIN category c ON
-      c.category_id = t.category_id
-
-      WHERE t.task_id = :task_id
+    $sql = " SELECT 
+      * FROM task
+      WHERE task_id = :task_id
       AND
-      t.deleted IS FALSE
+      deleted IS FALSE
       ;
     ";
     try {
@@ -115,11 +74,10 @@ class TaskService
           $result['task_id'],
           $result['task_name'],
           $result['task_description'],
-          $result['status_name'],
-          $result['category_name'],
-          $result['first_name'],
-          $result['last_name'],
-          $result['team_name'],
+          $result['user_email'],
+          $result['category'],
+          $result['status'],
+          $result['team'],
           $result['start_date'],
           $result['due_date'],
           $result['created_at'],
@@ -131,89 +89,55 @@ class TaskService
     }
   }
 
-  function create_task(TaskDTO $task)
-  {
-    $this->pdo->beginTransaction();
-    try {
-      $sql = "
-      INSERT INTO task (
-        task_name,
-        task_description,
-        start_date,
-        due_date
-      ) VALUES (
-        :task_name,
-        :task_description,
-        :start_date,
-        :due_date
-      );
+  function create_task(Task $task) {
+    try{
+      $sql = " INSERT INTO task 
+      (task_name, task_description, user_email, category, status, team, start_date, due_date)
+      VALUES
+      (:task_name, :task_description, :user_email, :category, :status, :team, :start_date, :due_date)
       ";
-
       $stmt = $this->pdo->prepare($sql);
-      $stmt->bindParam(':task_name', $task->task_name, PDO::PARAM_STR);
-      $stmt->bindParam(':task_description', $task->task_description, PDO::PARAM_STR);
-      $stmt->bindParam(':start_date', $task->start_date, PDO::PARAM_STR);
-      $stmt->bindParam(':due_date', $task->due_date, PDO::PARAM_STR);
+      $stmt->bindParam(':task_name', $task->get_task_name(), PDO::PARAM_STR);
+      $stmt->bindParam(':task_description', $task->get_task_description(), PDO::PARAM_STR);
+      $stmt->bindParam(':user_email', $task->get_user_email(), PDO::PARAM_STR);
+      $stmt->bindParam(':category', $task->get_category(), PDO::PARAM_STR);
+      $stmt->bindParam(':status', $task->get_status(), PDO::PARAM_STR);
+      $stmt->bindParam(':team', $task->get_team(), PDO::PARAM_STR);
+      $stmt->bindParam(':start_date', $task->get_start_date(), PDO::PARAM_STR);
+      $stmt->bindParam(':due_date', $task->get_due_date(), PDO::PARAM_STR);
       $stmt->execute();
 
-      $task_id = $this->pdo->lastInsertId();
-      $sql = "INSERT INTO task_category (task_id, category_id) VALUES (:task_id, :category_id);";
-      $stmt = $this->pdo->prepare($sql);
-      $stmt->bindParam(':task_id', $task_id, PDO::PARAM_INT);
-      $stmt->bindParam(':category_id', $task->category_id, PDO::PARAM_INT);
-      $stmt->execute();
 
-      $sql = "INSERT INTO task_user (task_id, user_id) VALUES (:task_id, :user_id);";
-      $stmt = $this->pdo->prepare($sql);
-      $stmt->bindParam(':task_id', $task_id, PDO::PARAM_INT);
-      $stmt->bindParam(':user_id', $task->user_id, PDO::PARAM_INT);
-      $stmt->execute();
-
-      $sql = "INSERT INTO task_team (task_id, team_id) VALUES (:task_id, :team_id);";
-      $stmt = $this->pdo->prepare($sql);
-      $stmt->bindParam(':task_id', $task_id, PDO::PARAM_INT);
-      $stmt->bindParam(':team_id', $task->team_id, PDO::PARAM_INT);
-      $stmt->execute();
-
-      $sql = "INSERT INTO task_status(task_id, status_id) VALUES (:task_id, :status_id);";
-      $stmt = $this->pdo->prepare($sql);
-      $stmt->bindParam(':task_id', $task_id, PDO::PARAM_INT);
-      $stmt->bindParam(':status_id', $task->status_id, PDO::PARAM_INT);
-      $stmt->execute();
-
-      $this->pdo->commit();
     } catch (PDOException $e) {
-      $this->pdo->rollBack();
-      throw $e->getMessage();
+      echo $e->getMessage();
     }
   }
 
-  function update_task(TaskDTO $task)
+  function update_task(Task $task)
   {
     try {
-      $sql = "
-      UPDATE task SET
+      $sql = " UPDATE task SET
       task_name = :task_name,
       task_description = :task_description,
-      status_id = :status_id,
-      user_id = :user_id,
-      team_id = :team_id,
-      category_id = :category_id,
+      user_email = :user_email,
+      status = :status,
+      category= :category,
+      team= :team,
       start_date = :start_date,
       due_date = :due_date
       WHERE task_id = :task_id;
       ";
 
       $stmt = $this->pdo->prepare($sql);
-      $stmt->bindParam(':status_id', $task->status_id, PDO::PARAM_INT);
-      $stmt->bindParam(':task_id', $task->task_id, PDO::PARAM_INT);
-      $stmt->bindParam(':task_name', $task->task_name, PDO::PARAM_STR);
-      $stmt->bindParam(':task_description', $task->task_description, PDO::PARAM_STR);
-      $stmt->bindParam(':user_id', $task->user_id, PDO::PARAM_INT);
-      $stmt->bindParam(':team_id', $task->team_id, PDO::PARAM_INT);
-      $stmt->bindParam(':category_id', $task->category_id, PDO::PARAM_INT);
-      $stmt->bindParam(':start_date', $task->start_date, PDO::PARAM_STR);
-      $stmt->bindParam(':due_date', $task->due_date, PDO::PARAM_STR);
+      $stmt->bindParam(':task_id', $task->get_task_id(), PDO::PARAM_INT);
+      $stmt->bindParam(':task_name', $task->get_task_name(), PDO::PARAM_STR);
+      $stmt->bindParam(':task_description', $task->get_task_description(), PDO::PARAM_STR);
+      $stmt->bindParam(':user_email', $task->get_user_email(), PDO::PARAM_STR);
+      $stmt->bindParam(':category', $task->get_category(), PDO::PARAM_STR);
+      $stmt->bindParam(':status', $task->get_status(), PDO::PARAM_STR);
+      $stmt->bindParam(':team', $task->get_team(), PDO::PARAM_STR);
+      $stmt->bindParam(':start_date', $task->get_start_date(), PDO::PARAM_STR);
+      $stmt->bindParam(':due_date', $task->get_due_date(), PDO::PARAM_STR);
 
       $stmt->execute();
     } catch (PDOException $e) {
@@ -224,8 +148,7 @@ class TaskService
   function delete_task(int $task_id)
   {
     try {
-      $sql = "
-      UPDATE task SET
+      $sql = "UPDATE task SET
       deleted = TRUE
       WHERE task_id = :task_id;
       ";
