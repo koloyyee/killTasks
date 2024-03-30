@@ -1,7 +1,7 @@
 <?php
 class Task
 {
-  private int $task_id;
+  private ?int $task_id;
   private string $task_name;
   private string $task_description;
   private string $user_email;
@@ -13,7 +13,7 @@ class Task
   private ?string $start_date;
   private ?string $due_date;
 
-  function __construct(int $task_id, string $task_name, string $task_description, string $user_email, string | null $category, string $status,  string | null $team, string $start_date, string $due_date, ?string $created_at = null, ?string $updated_at = null)
+  function __construct(?int $task_id, string $task_name, string $task_description, string $user_email, string | null $category, string $status,  string | null $team, ?string $start_date, ?string $due_date, ?string $created_at = null, ?string $updated_at = null)
   {
     $this->task_id = $task_id;
     $this->task_name = $task_name;

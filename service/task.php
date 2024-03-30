@@ -27,7 +27,7 @@ class TaskService
             $row['task_id'],
             $row['task_name'],
             $row['task_description'],
-            $row['email'],
+            $row['user_email'],
             $row['category'],
             $row['status'],
             $row['team'],

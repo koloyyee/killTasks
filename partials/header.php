@@ -28,5 +28,5 @@ if (!$is_login && !$is_register) {
 
 <body>
   <?php if (!$is_login  &&  !$is_register) : ?>
-    <?php include("../partials/nav.php") ?>
+    <?php include(__DIR__ . "/nav.php") ?>
   <?php endif ?>
