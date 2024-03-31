@@ -1,3 +1,5 @@
+import { toggleDisableBtn } from "./auth.js";
+
 document.addEventListener("DOMContentLoaded", (event) => {
     const registerValidate = {
       first_name: false,
@@ -7,18 +9,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
     };
       validateRegister(registerValidate);
 });
-
-
-function validateForm(validate) {
-  const buttonDisabled = Object.entries(validate).every(
-    (entry) => entry[1] === true
-  );
-  const submitBtn = document.getElementById("submit");
-  submitBtn.disabled = !buttonDisabled;
-}
-
 function validateRegister(validate) {
-  validateForm(validate);
+  toggleDisableBtn(validate);
   const element = document.querySelector("#register_form");
   const inputs = element.querySelectorAll("input");
   inputs.forEach((input) => {
@@ -33,7 +25,7 @@ function validateRegister(validate) {
           } else {
             validate.first_name = true;
             errMsg.innerHTML = "";
-            validateForm(validate);
+            toggleDisableBtn(validate);
           }
           break;
         case "last_name":
@@ -43,7 +35,7 @@ function validateRegister(validate) {
           } else {
             validate.last_name = true;
             errMsg.innerHTML = "";
-            validateForm(validate);
+            toggleDisableBtn(validate);
           }
           break;
         case "email":
@@ -53,7 +45,7 @@ function validateRegister(validate) {
           } else {
             validate.email = true;
             errMsg.innerHTML = "";
-            validateForm(validate);
+            toggleDisableBtn(validate);
           }
           break;
         case "password":
@@ -63,7 +55,7 @@ function validateRegister(validate) {
           } else {
             validate.password = true;
             errMsg.innerHTML = "";
-            validateForm(validate);
+            toggleDisableBtn(validate);
           }
           break;
         default:

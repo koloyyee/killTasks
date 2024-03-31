@@ -9,11 +9,12 @@ declare(strict_types=1);
 include_once("../config/pdo.php");
 include_once("../utils/checkers.php");
 include_once("../service/auth.php");
+$pdo = new PdoDao();
+$conn = $pdo->get_pdo();
+
 
 $email_err = $password_err = $result_msg = "";
 $email = $password = $message = "";
-$pdo = new PdoDao();
-$conn = $pdo->get_pdo();
 
 if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST') {
 
@@ -29,7 +30,8 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST') {
     }
 
     try {
-        $response = AuthService::login($conn, $email, $password);
+        $service = new AuthService();
+        $response = $service->login( $email, $password);
         $message = $response->success === false ?  "<p class='text-red-500'> $response->message </p>" : "";
         if ($response->success) {
             header("Location: ../private/dashboard.php");

@@ -1,3 +1,5 @@
+import { toggleDisableBtn } from "./auth";
+
 document.addEventListener("DOMContentLoaded", () => {
   const loginValidate = {
     email: false,
@@ -6,16 +8,9 @@ document.addEventListener("DOMContentLoaded", () => {
   validateLogin(loginValidate);
 });
 
-function validateForm(validate) {
-  const buttonDisabled = Object.entries(validate).every(
-    (entry) => entry[1] === true
-  );
-  const submitBtn = document.getElementById("submit");
-  submitBtn.disabled = !buttonDisabled;
-}
 
 function validateLogin(validate) {
-  validateForm(validate);
+  toggleDisableBtn(validate);
   const element = document.querySelector("#login_form");
   const inputs = element.querySelectorAll("input");
   inputs.forEach((input) => {
@@ -30,7 +25,7 @@ function validateLogin(validate) {
           } else {
             validate.email = true;
             errMsg.innerHTML = "";
-            validateForm(validate);
+            toggleDisableBtn(validate);
           }
           break;
         case "password":
@@ -40,7 +35,7 @@ function validateLogin(validate) {
           } else {
             validate.password = true;
             errMsg.innerHTML = "";
-            validateForm(validate);
+            toggleDisableBtn(validate);
           }
           break;
         default:

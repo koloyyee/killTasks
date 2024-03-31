@@ -6,18 +6,18 @@ include("../model/response.php");
 
 class TaskService
 {
-  private PDO $pdo;
+  private PDO $conn;
 
-  public function __construct(PDO $pdo)
+  public function __construct(PdoDao $pdo = new PdoDao())
   {
-    $this->pdo = $pdo;
+    $this->conn= $pdo->get_pdo();
   }
   public function get_tasks()
   {
     try {
       $sql= "SELECT * FROM task t order by status desc , created_at";
 
-      $statement = $this->pdo->prepare($sql);
+      $statement = $this->conn->prepare($sql);
       $statement->execute();
       $result =  $statement->fetchAll(PDO::FETCH_ASSOC);
 
@@ -56,7 +56,7 @@ class TaskService
     ";
     try {
 
-      $stmt = $this->pdo->prepare($sql);
+      $stmt = $this->conn->prepare($sql);
       $stmt->bindParam(':task_id', $task_id, PDO::PARAM_INT);
       $stmt->execute();
       $result =  $stmt->fetch(PDO::FETCH_ASSOC);
@@ -97,7 +97,7 @@ class TaskService
       VALUES
       (:task_name, :task_description, :user_email, :category, :status, :team, :start_date, :due_date)
       ";
-      $stmt = $this->pdo->prepare($sql);
+      $stmt = $this->conn->prepare($sql);
       $stmt->bindParam(':task_name', $task->get_task_name(), PDO::PARAM_STR);
       $stmt->bindParam(':task_description', $task->get_task_description(), PDO::PARAM_STR);
       $stmt->bindParam(':user_email', $task->get_user_email(), PDO::PARAM_STR);
@@ -122,7 +122,7 @@ class TaskService
       WHERE task_id = :task_id;
       ";
 
-      $stmt = $this->pdo->prepare($sql);
+      $stmt = $this->conn->prepare($sql);
       $stmt->bindParam(':task_id', $task_id, PDO::PARAM_INT);
       $stmt->bindParam(':status', $status, PDO::PARAM_STR);
       $stmt->execute();
@@ -146,7 +146,7 @@ class TaskService
       WHERE task_id = :task_id;
       ";
 
-      $stmt = $this->pdo->prepare($sql);
+      $stmt = $this->conn->prepare($sql);
       $stmt->bindParam(':task_id', $task->get_task_id(), PDO::PARAM_INT);
       $stmt->bindParam(':task_name', $task->get_task_name(), PDO::PARAM_STR);
       $stmt->bindParam(':task_description', $task->get_task_description(), PDO::PARAM_STR);
@@ -175,7 +175,7 @@ class TaskService
       WHERE task_id = :task_id;
       ";
 
-      $stmt = $this->pdo->prepare($sql);
+      $stmt = $this->conn->prepare($sql);
       $stmt->bindParam(':task_id', $task_id, PDO::PARAM_INT);
       $stmt->execute();
     } catch (PDOException $e) {

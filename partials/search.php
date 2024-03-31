@@ -1,11 +1,9 @@
 <?php
 declare(strict_types=1);
-include("../service/task.php");
-include("../config/pdo.php");
+include_once("../service/task.php");
+include_once("../config/pdo.php");
 
-$pdo = new PdoDao();
-$conn = $pdo->get_pdo();
-$service = new TaskService($conn);
+$service = new TaskService();
 $tasks = $service->get_tasks();
 $json = json_encode($tasks);
 
@@ -17,6 +15,6 @@ $json = json_encode($tasks);
   
   <button><input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"></button>
 <script>
-  const json = <?= $json ?>
-  
+  const json = <?php echo $json ?>;
+  console.log(json);
 </script>

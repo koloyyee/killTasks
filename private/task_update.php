@@ -54,9 +54,7 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST') {
 
   $task = new Task(intval($task_id), $task_name, $task_description, $user_email, $category, $status,  $team, $start_date, $due_date);
 
-  $pdo = new PdoDao();
-  $conn = $pdo->get_pdo();
-  $service = new TaskService($conn);
+  $service = new TaskService();
   $resp = $service->update_task($task);
   if ($resp) {
     // header("Location: personal.php");

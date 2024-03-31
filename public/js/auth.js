@@ -1,12 +1,10 @@
 "use strict";
 console.log("auth.js is connected");
-const registerValidate = {
-  first_name: false,
-  last_name: false,
-  email: false,
-  password: false,
-};
-const loginValidate = {
-  email: false,
-};
-export { validateRegister, validateLogin}
+function toggleDisableBtn(validate) {
+  const buttonDisabled = Object.entries(validate).every(
+    (entry) => entry[1] === true
+  );
+  const submitBtn = document.getElementById("submit");
+  submitBtn.disabled = !buttonDisabled;
+}
+export { toggleDisableBtn}

@@ -2,13 +2,11 @@
 
 declare(strict_types=1);
 // show all tasks
-include("../service/task.php");
-include("../config/pdo.php");
-include("../utils/convertors.php");
+include_once("../service/task.php");
+include_once("../config/pdo.php");
+include_once("../utils/convertors.php");
 
-$pdo = new PdoDao();
-$conn = $pdo->get_pdo();
-$task_service = new TaskService($conn);
+$task_service = new TaskService();
 $tasks =  $task_service->get_tasks();
 $groupByStatus = array();
 foreach ($tasks as $key => $value) {

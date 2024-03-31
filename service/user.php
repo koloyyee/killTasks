@@ -6,9 +6,9 @@ include("../model/response.php");
 class UserService
 {
   private PDO $conn;
-  function __construct(PDO $pdo)
+  function __construct(PdoDao $pdo = new PdoDao())
   {
-    $this->conn = $pdo;
+    $this->conn = $pdo->get_pdo();
   }
   public function create_user(User $user): Response
   {

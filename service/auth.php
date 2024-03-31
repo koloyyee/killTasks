@@ -7,11 +7,16 @@ include("../model/response.php");
 
 class AuthService
 {
-  public static function login(PDO $conn, string $email, string $password): Response
+  private PDO $conn;
+  public function __construct(PdoDao $pdo= new PdoDao())
+  {
+    $this->conn = $pdo->get_pdo();  
+  }
+  public function login(string $email, string $password): Response
   {
     session_start();
     $sql = "SELECT first_name, last_name, password FROM user WHERE email = '$email'";
-    $stmt = $conn->query($sql);
+    $stmt = $this->conn->query($sql);
     $user = $stmt->fetch();
     if (empty($user)) {
       return new Response(false, "No user found");

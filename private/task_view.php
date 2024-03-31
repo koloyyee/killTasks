@@ -6,13 +6,11 @@ include("../config/pdo.php");
 include("../utils/convertors.php");
 
 if (isset($_GET["task_id"])) {
-  $task = $_GET['task_id'];
+  $task_id = $_GET['task_id'];
 
-  $pdo = new PdoDao();
-  $conn = $pdo->get_pdo();
-  $service = new TaskService($conn);
+  $service = new TaskService();
 
-  $task = $service->get_task_by_id(intval($task));
+  $task = $service->get_task_by_id(intval($task_id));
   $task_name = $task->get_task_name();
   $task_description = $task->get_task_description();
   $status = ucwords($task->get_status());
