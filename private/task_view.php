@@ -24,4 +24,11 @@ if (isset($_GET["task_id"])) {
   $update_at = string_to_date($task->get_updated_at());
 }
 ?>
+<?php include("../partials/header.php") ?>
+<main class="">
 
+  <button type="button" class="btn btn-lg btn-danger" data-bs-toggle="popover" data-bs-title="Popover title" data-bs-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button>
+
+</main>
+
+<?php include("../partials/footer.php") ?>
