@@ -6,7 +6,7 @@ include_once("../service/task.php");
 include_once("../config/pdo.php");
 include_once("../utils/convertors.php");
 
-session_start();
+
 $task_service = new TaskService();
 $tasks =  $task_service->get_tasks_by_user($_SESSION['email']);
 $groupByStatus = array();
