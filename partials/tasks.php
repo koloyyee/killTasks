@@ -4,6 +4,7 @@ declare(strict_types=1);
 // show all tasks
 include("../service/task.php");
 include("../config/pdo.php");
+include("../utils/convertors.php");
 
 $pdo = new PdoDao();
 $conn = $pdo->get_pdo();
@@ -68,17 +69,17 @@ function status_color(string $status): string
         </tr>
       </thead>
       <tbody>
-        <h3> <?php echo $status ?> </h3>
+        <h3> <?= ucwords($status) ?> </h3>
         <?php foreach ($tasks as $task) : ?>
           <tr>
             <td><?php echo $task->get_task_name() ?></td>
             <td><?php echo $task->get_task_description() ?></td>
             <td><?php echo $task->get_user_email() ?></td>
-            <td><span class="<?php echo "badge text-bg-" . status_color($task->get_status()); ?>"><?php echo $task->get_status() ?></span></td>
-            <td><?php echo $task->get_category()  ?? "" ?></td>
-            <td><?php echo $task->get_team() ?? "" ?></td>
-            <td><?php echo $task->get_start_date() ?? "" ?></td>
-            <td><?php echo $task->get_due_date() ?? "" ?></td>
+            <td><span class="<?php echo "badge text-bg-" . status_color($task->get_status()); ?>"><?php echo ucwords($task->get_status()); ?></span></td>
+            <td><?php echo ucwords($task->get_category())  ?? "" ?></td>
+            <td><?php echo ucwords($task->get_team()) ?? "" ?></td>
+            <td><?php echo string_to_date($task->get_start_date(), 'd/m/y') ?? "" ?></td>
+            <td><?php echo string_to_date($task->get_due_date(), "d/m/y") ?? "" ?></td>
             <?php if ($status !== "completed") : ?>
               <td> <a href=<?= "../private/personal.php?task_id=" . $task->get_task_id() . "&method=completed"; ?>>Completed </a></td>
               <td> <a href=<?= "../private/task_update.php?task_id=" . $task->get_task_id(); ?> > Update Task </a></td>
@@ -91,7 +92,8 @@ function status_color(string $status): string
   <?php endforeach; ?>
 </main>
 <script>
-  // const tasks = JSON.parse(`<?php echo $groupByStatus ?>`);
+  const tasks = JSON.parse(`<?php echo $groupByStatus ?>`);
+  console.log({tasks})
   // create the table
   console.log(<?php echo $status?>)
 </script>

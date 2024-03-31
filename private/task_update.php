@@ -4,6 +4,7 @@ declare(strict_types=1);
 include("../service/task.php");
 include("../config/pdo.php");
 include("../utils/checkers.php");
+include("../utils/convertors.php");
 
 session_start();
 
@@ -36,10 +37,6 @@ function status_options($statuses)
   }
 }
 
-function string_to_date(string  $date)
-{
-  return $date ?  date('c', strtotime($date)) : "";
-}
 /**
  * handle update with POST
  */

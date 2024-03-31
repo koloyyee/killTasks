@@ -19,9 +19,9 @@ class Task
     $this->task_name = $task_name;
     $this->task_description = $task_description;
     $this->user_email = $user_email;
-    $this->status = $status;
-    $this->category = $category;
-    $this->team = $team;
+    $this->status = strtolower($status);
+    $this->category = strtolower($category);
+    $this->team = strtolower( $team);
     $this->created_at = $created_at;
     $this->updated_at = $updated_at;
     $this->start_date = $start_date;

@@ -15,3 +15,14 @@ input {
   border-radius: 0.2rem;
   border: 2px solid #ccc;
 }
+
+#logo {
+  max-width: 5rem;
+  height: auto;
+  border-radius: 50%;
+}
+#tag-line {
+  margin:0;
+  font-size: 0.8rem;
+  color: #0070ba;
+}
