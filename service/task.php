@@ -3,6 +3,7 @@
 declare(strict_types=1);
 include("../model/task.php");
 include("../model/response.php");
+include("../config/pdo.php");
 
 class TaskService
 {
@@ -10,16 +11,54 @@ class TaskService
 
   public function __construct(PdoDao $pdo = new PdoDao())
   {
-    $this->conn= $pdo->get_pdo();
+    $this->conn = $pdo->get_pdo();
   }
+
   public function get_tasks()
   {
     try {
-      $sql= "SELECT * FROM task t order by status desc , created_at";
+      $sql = "SELECT * FROM task t order by status desc , created_at";
 
       $statement = $this->conn->prepare($sql);
       $statement->execute();
       $result =  $statement->fetchAll(PDO::FETCH_ASSOC);
+
+      $tasks = [];
+      if (!empty($result)) {
+        foreach ($result as $row) {
+          $task = new Task(
+            $row['task_id'],
+            $row['task_name'],
+            $row['task_description'],
+            $row['user_email'],
+            $row['category'],
+            $row['status'],
+            $row['team'],
+            $row['start_date'],
+            $row['due_date'],
+            $row['created_at'],
+            $row['updated_at']
+          );
+          array_push($tasks, $task);
+        }
+        return $tasks;
+      }
+    } catch (PDOException $e) {
+      echo $e->getMessage();
+    }
+  }
+  public function get_tasks_by_user(string $email)
+  {
+    try {
+      $sql = "SELECT * FROM task t 
+             WHERE user_email = :user_email 
+             ORDER BY status DESC, created_at;
+             ";
+
+      $stmt = $this->conn->prepare($sql);
+      $stmt->bindParam(':user_email', $email, PDO::PARAM_STR);
+      $stmt->execute();
+      $result =  $stmt->fetchAll(PDO::FETCH_ASSOC);
 
       $tasks = [];
       if (!empty($result)) {
@@ -90,25 +129,33 @@ class TaskService
     }
   }
 
-  function create_task(Task $task) {
-    try{
+  function create_task(Task $task)
+  {
+    $task_name = $task->get_task_name();
+    $task_description = $task->get_task_description();
+    $user_email = $task->get_user_email();
+    $category = $task->get_category();
+    $status = $task->get_status();
+    $team = $task->get_team();
+    $start_date = $task->get_start_date();
+    $due_date = $task->get_due_date();
+    try {
       $sql = " INSERT INTO task 
       (task_name, task_description, user_email, category, status, team, start_date, due_date)
       VALUES
       (:task_name, :task_description, :user_email, :category, :status, :team, :start_date, :due_date)
       ";
       $stmt = $this->conn->prepare($sql);
-      $stmt->bindParam(':task_name', $task->get_task_name(), PDO::PARAM_STR);
-      $stmt->bindParam(':task_description', $task->get_task_description(), PDO::PARAM_STR);
-      $stmt->bindParam(':user_email', $task->get_user_email(), PDO::PARAM_STR);
-      $stmt->bindParam(':category', $task->get_category(), PDO::PARAM_STR);
-      $stmt->bindParam(':status', $task->get_status(), PDO::PARAM_STR);
-      $stmt->bindParam(':team', $task->get_team(), PDO::PARAM_STR);
-      $stmt->bindParam(':start_date', $task->get_start_date(), PDO::PARAM_STR);
+      $stmt->bindParam(':task_name', $task_name, PDO::PARAM_STR);
+      $stmt->bindParam(':task_description', $task_description, PDO::PARAM_STR);
+      $stmt->bindParam(':user_email', $task->$user_email, PDO::PARAM_STR);
+      $stmt->bindParam(':category', $task->$category, PDO::PARAM_STR);
+      $stmt->bindParam(':status', $task->$status, PDO::PARAM_STR);
+      $stmt->bindParam(':team', $task->$team, PDO::PARAM_STR);
+      $stmt->bindParam(':start_date', $start_date, PDO::PARAM_STR);
+      $stmt->bindParam(':due_date', $due_date, PDO::PARAM_STR);
       $stmt->bindParam(':due_date', $task->get_due_date(), PDO::PARAM_STR);
       $stmt->execute();
-
-
     } catch (PDOException $e) {
       echo $e->getMessage();
     }
@@ -133,6 +180,16 @@ class TaskService
 
   function update_task(Task $task)
   {
+    $task_id = $task->get_task_id();
+    $task_name = $task->get_task_name();
+    $task_description = $task->get_task_description();
+    $user_email = $task->get_user_email();
+    $category = $task->get_category();
+    $status = $task->get_status();
+    $team = $task->get_team();
+    $start_date = $task->get_start_date();
+    $due_date = $task->get_due_date();
+
     try {
       $sql = " UPDATE task SET
       task_name = :task_name,
@@ -147,21 +204,21 @@ class TaskService
       ";
 
       $stmt = $this->conn->prepare($sql);
-      $stmt->bindParam(':task_id', $task->get_task_id(), PDO::PARAM_INT);
-      $stmt->bindParam(':task_name', $task->get_task_name(), PDO::PARAM_STR);
-      $stmt->bindParam(':task_description', $task->get_task_description(), PDO::PARAM_STR);
-      $stmt->bindParam(':user_email', $task->get_user_email(), PDO::PARAM_STR);
-      $stmt->bindParam(':category', $task->get_category(), PDO::PARAM_STR);
-      $stmt->bindParam(':status', $task->get_status(), PDO::PARAM_STR);
-      $stmt->bindParam(':team', $task->get_team(), PDO::PARAM_STR);
-      $stmt->bindParam(':start_date', $task->get_start_date(), PDO::PARAM_STR);
-      $stmt->bindParam(':due_date', $task->get_due_date(), PDO::PARAM_STR);
+      $stmt->bindParam(':task_id', $task_id, PDO::PARAM_INT);
+      $stmt->bindParam(':task_name', $task_name, PDO::PARAM_STR);
+      $stmt->bindParam(':task_description', $task_description, PDO::PARAM_STR);
+      $stmt->bindParam(':user_email', $task->$user_email, PDO::PARAM_STR);
+      $stmt->bindParam(':category', $task->$category, PDO::PARAM_STR);
+      $stmt->bindParam(':status', $task->$status, PDO::PARAM_STR);
+      $stmt->bindParam(':team', $task->$team, PDO::PARAM_STR);
+      $stmt->bindParam(':start_date', $start_date, PDO::PARAM_STR);
+      $stmt->bindParam(':due_date', $due_date, PDO::PARAM_STR);
 
-     if( $stmt->execute()) {
-      return new Response(true, "Task updated successfully");
-     } else {
-      return new Response(false, "Task update failed");
-     }
+      if ($stmt->execute()) {
+        return new Response(true, "Task updated successfully");
+      } else {
+        return new Response(false, "Task update failed");
+      }
     } catch (PDOException $e) {
       echo $e->getMessage();
     }

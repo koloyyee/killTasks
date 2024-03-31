@@ -1,8 +1,7 @@
 <?php
 
 declare(strict_types=1);
-include("../service/task.php");
-include("../config/pdo.php");
+include_once("../service/task.php");
 include("../utils/checkers.php");
 include("../utils/convertors.php");
 
@@ -11,13 +10,10 @@ session_start();
 $task_id = 0;
 
 if (isset($_GET['task_id'])) {
+  $service = new TaskService();
 
   $task_id = $_GET['task_id'];
-  $pdo = new PdoDao();
-  $conn = $pdo->get_pdo();
-  $service = new TaskService($conn);
   $task = $service->get_task_by_id(intval($task_id));
-
   $task_name = $task->get_task_name();
   $task_description = $task->get_task_description();
   $status = $task->get_status();

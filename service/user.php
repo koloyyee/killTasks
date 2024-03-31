@@ -12,16 +12,21 @@ class UserService
   }
   public function create_user(User $user): Response
   {
+    $first_name = $user->get_first_name();
+    $last_name = $user->get_last_name();
+    $email = $user->get_email();
+    $password = $user->get_password();
+
     try {
       $sql = 'INSERT INTO user 
       (first_name, last_name, email, password) 
       VALUES (:first_name, :last_name, :email, :password)
       ';
       $stmt = $this->conn->prepare($sql);
-      $stmt->bindParam(':first_name', $user->first_name, PDO::PARAM_STR);
-      $stmt->bindParam(':last_name', $user->last_name, PDO::PARAM_STR);
-      $stmt->bindParam(':email', $user->email, PDO::PARAM_STR);
-      $stmt->bindParam(":password", $user->password, PDO::PARAM_STR);
+      $stmt->bindParam(':first_name', $first_name, PDO::PARAM_STR);
+      $stmt->bindParam(':last_name', $last_name, PDO::PARAM_STR);
+      $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+      $stmt->bindParam(":password", $password, PDO::PARAM_STR);
       $stmt->execute();
       return new Response(true, "User registered successfully");
     } catch (PDOException $e) {
@@ -126,6 +131,15 @@ class UserService
 
   public function update_user(User $user)
   {
+    $user_id = $user->get_user_id();
+    $first_name = $user->get_first_name();
+    $last_name = $user->get_last_name();
+    $email = $user->get_email();
+    $password = $user->get_password();
+    $role = $user->get_role();
+    $team = $user->get_team();
+
+
     $sql = "UPDATE user SET 
     first_name = :first_name, 
     last_name = :last_name, 
@@ -136,12 +150,12 @@ class UserService
     WHERE user_id = :user_id";
     try {
       $stmt = $this->conn->prepare($sql);
-      $stmt->bindParam(':first_name', $user->get_first_name(), PDO::PARAM_STR);
-      $stmt->bindParam(':last_name', $user->get_last_name(), PDO::PARAM_STR);
-      $stmt->bindParam(":email", $user->get_email(), PDO::PARAM_STR);
-      $stmt->bindParam(":password", $user->get_password(), PDO::PARAM_STR);
-      $stmt->bindParam(":role", $user->get_role(), PDO::PARAM_INT);
-      $stmt->bindParam(":team", $user->get_team(), PDO::PARAM_INT);
+      $stmt->bindParam(':first_name', $first_name, PDO::PARAM_STR);
+      $stmt->bindParam(':last_name', $last_name, PDO::PARAM_STR);
+      $stmt->bindParam(":email", $email, PDO::PARAM_STR);
+      $stmt->bindParam(":password", $password, PDO::PARAM_STR);
+      $stmt->bindParam(":role", $role, PDO::PARAM_INT);
+      $stmt->bindParam(":team", $team, PDO::PARAM_INT);
 
       $stmt->execute();
       return new Response(true, "User updated successfully");

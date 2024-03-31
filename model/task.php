@@ -1,17 +1,17 @@
 <?php
 class Task
 {
-  public ?int $task_id;
-  public string $task_name;
-  public string $task_description;
-  public string $user_email;
-  public ?string $category;
-  public string $status;
-  public ?string $team;
-  public ?string $created_at;
-  public ?string $updated_at;
-  public ?string $start_date;
-  public ?string $due_date;
+  private ?int $task_id;
+  private string $task_name;
+  private string $task_description;
+  private string $user_email;
+  private ?string $category;
+  private string $status;
+  private ?string $team;
+  private ?string $created_at;
+  private ?string $updated_at;
+  private ?string $start_date;
+  private ?string $due_date;
 
   function __construct(?int $task_id, string $task_name, string $task_description, string $user_email, ?string $category, string $status,  ?string $team, ?string $start_date, ?string $due_date, ?string $created_at = null, ?string $updated_at = null)
   {
@@ -76,15 +76,15 @@ class Task
 
 class TaskMM
 {
-  public ?int  $task_id;
-  public string $task_name;
-  public string $task_description;
-  public int $status_id;
-  public int $user_id;
-  public int $team_id;
-  public int $category_id;
-  public ?string $start_date;
-  public ?string $due_date;
+  private ?int  $task_id;
+  private string $task_name;
+  private string $task_description;
+  private int $status_id;
+  private int $user_id;
+  private int $team_id;
+  private int $category_id;
+  private ?string $start_date;
+  private ?string $due_date;
   public function __construct(?int  $task_id, string $task_name, string $task_description, int $status_id, int $user_id, int $team_id, int $category_id, ?string $start_date = null, ?string $due_date = null)
   {
     $this->task_id = $task_id;
