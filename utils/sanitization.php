@@ -8,7 +8,9 @@ enum Input
   case password;
   case number;
 };
-
+/**
+ * Sanitize input data
+ */
 function sanitize(string | int $input, Input $type) : string 
 {
   $input = trim($input);

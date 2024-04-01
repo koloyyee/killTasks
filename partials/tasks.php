@@ -9,31 +9,38 @@ include_once("../utils/convertors.php");
 
 $task_service = new TaskService();
 $tasks =  $task_service->get_tasks_by_user($_SESSION['email']);
+
+/**
+ * Group tasks by status
+ */
 $groupByStatus = array();
 foreach ($tasks as $key => $value) {
   $groupByStatus[$value->get_status()][] = $value;
 }
-
 $json = json_encode($groupByStatus);
 
+/**
+ * handle update with $_GET variables
+ */
 if (strtoupper($_SERVER['REQUEST_METHOD']) === 'GET') {
   if (isset($_GET['task_id']) && isset($_GET['method'])) {
     $task_id = $_GET['task_id'];
     $method = $_GET['method'];
     if ($method === "completed") {
       $task_service->update_status(intval($task_id), "completed");
-      header("Location: ./personal.php");
     } else if ($method === "delete") {
       $task_service->delete_task(intval($task_id));
-      header("Location: ./personal.php");
     }
+      header("Location: ./personal.php");
   }
 }
 
-
+/**
+ * @param string $status
+ * @return string - bootstap color class
+ */
 function status_color(string $status): string
 {
-
   switch (strtolower($status)) {
     case "working":
       return "warning";

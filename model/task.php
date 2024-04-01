@@ -1,4 +1,22 @@
 <?php
+
+/***
+ * Task is a class that represents a task object
+ * similar to DTO data transfer object
+ * this mimics the structure of the task table
+ * 
+ * @property int $task_id
+ * @property string $task_name
+ * @property string $task_description
+ * @property string $user_email
+ * @property string $category
+ * @property string $status
+ * @property ?string $team
+ * @property ?string $created_at
+ * @property ?string $updated_at
+ * @property ?string $start_date
+ * @property ?string $due_date
+ **/
 class Task
 {
   private ?int $task_id;

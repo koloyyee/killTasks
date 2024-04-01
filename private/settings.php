@@ -1,4 +1,8 @@
 <?php
+/**
+ * Account settings and profile update page.
+ */
+declare(strict_types=1);
 $page_name = "Settings";
 ?>
 
@@ -6,5 +10,4 @@ $page_name = "Settings";
 
 <?= $page_name ?>
 
-This is for Durra
 <?php include("../partials/footer.php") ?>

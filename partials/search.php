@@ -1,4 +1,12 @@
 <?php
+/**
+ * Search Modal form
+ * when the user clicks on the search input
+ * a modal form will pop up with a list of tasks
+ * that the user can search through
+ * 
+ * This is will be a frontend search. 
+ */
 declare(strict_types=1);
 include_once("../service/task.php");
 include_once("../config/pdo.php");
@@ -17,4 +25,8 @@ $json = json_encode($tasks);
 <script>
   const json = <?php echo $json ?>;
   console.log(json);
+  /**
+   * JavaScript dynamically generate HTML elements
+   * to list the tasks in the search modal.
+   */
 </script>

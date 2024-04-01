@@ -1,9 +1,13 @@
 <?php
-
 declare(strict_types=1);
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
+/**
+ * Check the current URI to determine 
+ * if is login or logout.
+ * Nav will not be displayed if the user is on the login/register page
+ */
 $uri = $_SERVER['REQUEST_URI'];
 $is_login = str_contains(strtolower($uri), "login");
 $is_register = str_contains(strtolower($uri), "register");

@@ -1,6 +1,17 @@
 <?php
 declare(strict_types=1);
-
+/**
+ * User class mimic the structure of the user table
+ * similar to a DTO data transfer object
+ * 
+ * @property ?int $user_id
+ * @property string $first_name
+ * @property string $last_name
+ * @property string $email
+ * @property string $password
+ * @property ?string $role
+ * @property ?string $team
+ */
 class User {
   private ?int $user_id;
   private string $first_name;

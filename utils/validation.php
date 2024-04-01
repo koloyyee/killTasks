@@ -7,7 +7,12 @@ enum Fields {
   case password;
   case number;
 }
-
+/**
+ * Validate input data
+ * @param string $input
+ * @param Fields $field @see Fields
+ * @return bool
+ */
 function validate(string $input, Fields $field): bool
 {
   $email_regex= "/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/";

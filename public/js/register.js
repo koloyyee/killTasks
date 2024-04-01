@@ -1,14 +1,23 @@
 import { toggleDisableBtn } from "./auth.js";
 
-document.addEventListener("DOMContentLoaded", (event) => {
-    const registerValidate = {
-      first_name: false,
-      last_name: false,
-      email: false,
-      password: false,
-    };
-      validateRegister(registerValidate);
+/**
+ * Avoid querySelector return null
+ * wait for DOM to be full loaded
+ */
+document.addEventListener("DOMContentLoaded", () => {
+  const registerValidate = {
+    first_name: false,
+    last_name: false,
+    email: false,
+    password: false,
+  };
+  validateRegister(registerValidate);
 });
+/**
+ * Validate the register form
+ *  Listen to onkeyup events on input fields
+ * @param validate Object - @see registerValidate
+ */
 function validateRegister(validate) {
   toggleDisableBtn(validate);
   const element = document.querySelector("#register_form");

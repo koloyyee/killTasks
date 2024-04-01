@@ -1,5 +1,8 @@
 import { toggleDisableBtn } from "./auth";
-
+/**
+ * Avoid querySelector return null
+ * wait for DOM to be full loaded
+ */
 document.addEventListener("DOMContentLoaded", () => {
   const loginValidate = {
     email: false,
@@ -8,7 +11,12 @@ document.addEventListener("DOMContentLoaded", () => {
   validateLogin(loginValidate);
 });
 
-
+/**
+ *  Validate the login form
+ * Listen to onkeyup events on input fields
+ *  
+ * @param validate Object - @see loginValidate
+ */
 function validateLogin(validate) {
   toggleDisableBtn(validate);
   const element = document.querySelector("#login_form");

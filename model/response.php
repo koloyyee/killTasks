@@ -1,10 +1,31 @@
 <?php
 declare(strict_types=1);
 
+enum HTTP_CODE :string {
+  case OK = 200;
+  case CREATED = 201;
+  case NO_CONTENT = 204;
+  case BAD_REQUEST = 400;
+  case UNAUTHORIZED = 401;
+  case FORBIDDEN = 403;
+  case NOT_FOUND = 404;
+  case METHOD_NOT_ALLOWED = 405;
+  case CONFLICT = 409;
+  case INTERNAL_SERVER_ERROR = 500;
+}
+/**
+ * HTTP Response type
+ * @property bool $success - response status (to be deprecated)
+ * @property HTTP_CODE $code - http status code
+ * @property string $message - response message
+ * @property string $json - json encoded data
+ */
 class Response 
 {
   public bool $success;
+  public HTTP_CODE $code;
   public string $message;
+  public string $json;
 
   public function __construct(bool $success, string $message)
   {

@@ -1,10 +1,16 @@
 <?php
 
 declare(strict_types=1);
-include("../model/task.php");
-include("../model/response.php");
-include("../config/pdo.php");
-
+include_once("../model/task.php");
+include_once("../model/response.php");
+include_once("../config/pdo.php");
+/**
+ * Task Service
+ * CRUD operations for tasks
+ * 
+ * Dependency Injection PdoDao class
+ * @see PdoDao
+ */
 class TaskService
 {
   private PDO $conn;

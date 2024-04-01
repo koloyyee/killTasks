@@ -1,8 +1,14 @@
 <?php
 declare(strict_types=1);
-include("../model/user.php");
-include("../model/response.php");
-// CRUD user
+include_once("../model/user.php");
+include_once("../model/response.php");
+/**
+ * User Service
+ * CRUD operations for users 
+ * 
+ * Dependency Injection PdoDao class
+ * @see PdoDao
+ */
 class UserService
 {
   private PDO $conn;

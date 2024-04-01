@@ -1,14 +1,19 @@
 <?php
-
+/**
+ * Task update page.
+ */
 declare(strict_types=1);
 include_once("../service/task.php");
-include("../utils/checkers.php");
-include("../utils/convertors.php");
+include_once("../utils/checkers.php");
+include_once("../utils/convertors.php");
+include_once("../partials/status_options.php");
 
 session_start();
 
 $task_id = 0;
-
+/**
+ * Task id is passed as a query parameter with GET method
+ */
 if (isset($_GET['task_id'])) {
   $service = new TaskService();
 
@@ -25,19 +30,11 @@ if (isset($_GET['task_id'])) {
   $update_at = $task->get_updated_at();
 }
 
-$statuses = ["Working", "Completed", "Overdue"];
-function status_options($statuses)
-{
-  foreach ($statuses as $status) {
-    echo "<option value='$status'>$status</option>";
-  }
-}
 
 /**
  * handle update with POST
  */
 if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST') {
-  // var_dump($_POST);
   $task_id =  sanitize($_POST['task_id'], Input::number);
   $task_name = sanitize($_POST['task_name'], Input::string);
   $task_description = sanitize($_POST['task_description'], Input::string);

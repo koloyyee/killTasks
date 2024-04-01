@@ -3,7 +3,7 @@ declare(strict_types=1);
 include_once("../service/task.php");
 include_once("../config/pdo.php");
 
-$page_name = "Dashboard";
+$page_name = "Dashboard to be implemented.";
 
 $service = new TaskService();
 // $updateTask= new TaskDTO(1,"Update Task","Update Task Description",2,1,1,1,"2024-01-01","2024-03-01");

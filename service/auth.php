@@ -3,8 +3,15 @@
 declare(strict_types=1);
 include_once("../utils/checkers.php");
 include_once("../config/pdo.php");
-include("../model/response.php");
+include_once("../model/response.php");
 
+/**
+ * AuthService class
+ * handles login and logout
+ * 
+ * Dependency Injection PdoDao class
+ * @see PdoDao
+ */
 class AuthService
 {
   private PDO $conn;
