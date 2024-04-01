@@ -37,7 +37,7 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) === 'GET') {
 
 /**
  * @param string $status
- * @return string - bootstap color class
+ * @return string - bootstrap color class
  */
 function status_color(string $status): string
 {
