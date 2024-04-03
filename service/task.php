@@ -98,8 +98,6 @@ class TaskService
     $sql = " SELECT 
       * FROM task
       WHERE task_id = :task_id
-      AND
-      deleted IS FALSE
       ;
     ";
     try {
