@@ -41,15 +41,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   $task = new Task($task_id , $task_name, $task_description, $user_email, $category, $status,  $team, $start_date, $due_date);
   $service = new TaskService();
+  
   if($task_id == null) {
     $resp = $service->create_task($task);
   } else {
     $resp = $service->update_task($task);
   }
   if ($resp->success) {
-      // header("Location: /personal.php");
+      unset($_POST);
   }
-  unset($_POST);
 }
 
 ?>
@@ -80,18 +80,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   </label>
   <label class="form-label" for="start_date"> Start Date
-    <input class="form-control" name="start_date" id="start_date" type="date" value="<?= string_to_date($start_date) ?>">
+    <input class="form-control" name="start_date" id="start_date" type="date" value="<?= string_to_date($start_date, 'Y-m-d') ?>">
   </label>
   <label class="form-label" for="due_date"> Due Date
-    <input class="form-control" name="due_date" id="due_date" type="date" value="<?= string_to_date($due_date) ?>">
+    <input class="form-control" name="due_date" id="due_date" type="date" value="<?= string_to_date($due_date, 'Y-m-d') ?>">
   </label>
 
 
 
 
   <?php if (isset($_GET['task_id'])) : ?>
-    <input type="hidden" name="created_at" value="<?= string_to_date($created_at) ?>">
-    <input type="hidden" name="update_at" value="<?= string_to_date($update_at) ?>">
+    <input type="hidden" name="created_at" value="<?= string_to_date($created_at, 'Y-m-d') ?>">
+    <input type="hidden" name="update_at" value="<?= string_to_date($update_at, 'Y-m-d') ?>">
     <?php if (string_to_date($update_at) !== "") : ?>
       <small>Last Update: <?= date("d/m/Y", strtotime($update_at)) ?> </small>
     <?php endif ?>

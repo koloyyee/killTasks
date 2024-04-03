@@ -9,21 +9,24 @@ include_once("../utils/convertors.php");
 
 $task_service = new TaskService();
 $tasks =  $task_service->get_tasks_by_user($_SESSION['email']);
-// pprint($tasks);
 /**
  * Group tasks by status
  */
 $groupByStatus = array();
-foreach ($tasks as $key => $value) {
-  $groupByStatus[$value->get_status()][] = $value;
+if (isset($task) || empty($tasks)) {
+  echo "<h1> No tasks found </h1>";
+  return;
+} else {
+  foreach ($tasks as $key => $value) {
+    $groupByStatus[$value->get_status()][] = $value;
+    $json = json_encode($groupByStatus);
+  }
 }
-$json = json_encode($groupByStatus);
 
 /**
  * handle update with $_GET variables
  */
 if (strtoupper($_SERVER['REQUEST_METHOD']) === 'GET') {
-  ob_start();
   if (isset($_GET['task_id']) && isset($_GET['method'])) {
     $task_id = $_GET['task_id'];
     $method = $_GET['method'];
@@ -32,9 +35,9 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) === 'GET') {
     } else if ($method === "delete") {
       $task_service->delete_task(intval($task_id));
     }
-    ob_flush();
-    // header("Location: ./personal.php");
+    header("Location: personal.php");
   }
+
 }
 
 /**

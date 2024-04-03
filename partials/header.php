@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
@@ -35,6 +36,7 @@ if (isset($_SESSION['first_name']) && isset($_SESSION['last_name'])) {
   $welcome = "Welcome back! " . $_SESSION['first_name'] . " " . $_SESSION['last_name'];
 }
 ?>
+<?php ob_start() ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -64,14 +66,15 @@ if (isset($_SESSION['first_name']) && isset($_SESSION['last_name'])) {
             <?php endforeach; ?>
           </ul>
           <?php include("search.php") ?>
-        <a class="navbar-brand d-flex gap-2 mx-3" href="#">
-          <img id="logo" alt="killtasks logo" src="../assets/logo.jpg">
-          <div class="align-self-end">
-          <h4> KillTasks</h4>
-          <small id="tag-line" ><em>Streamlining Your Life with Efficiency</em></small>
-          </div>
-        </a>
+          <a class="navbar-brand d-flex gap-2 mx-3" href="#">
+            <img id="logo" alt="killtasks logo" src="../assets/logo.jpg">
+            <div class="align-self-end">
+              <h4> KillTasks</h4>
+              <small id="tag-line"><em>Streamlining Your Life with Efficiency</em></small>
+            </div>
+          </a>
         </div>
       </div>
     </nav>
   <?php endif ?>
+  

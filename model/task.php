@@ -23,15 +23,15 @@ class Task
   private string $task_name;
   private string $task_description;
   private string $user_email;
-  private ?string $category;
+  private string $category;
   private string $status;
-  private ?string $team;
+  private string $team;
   private ?string $created_at;
   private ?string $updated_at;
-  private ?string $start_date;
-  private ?string $due_date;
+  private string $start_date;
+  private string $due_date;
 
-  function __construct(?int $task_id, string $task_name, string $task_description, string $user_email, ?string $category, string $status,  ?string $team, ?string $start_date, ?string $due_date, ?string $created_at = null, ?string $updated_at = null)
+  function __construct(?int $task_id, string $task_name, string $task_description, string $user_email, string $category, string $status,  string $team, string $start_date, string $due_date, ?string $created_at = null, ?string $updated_at = null)
   {
     $this->task_id = $task_id;
     $this->task_name = $task_name;
