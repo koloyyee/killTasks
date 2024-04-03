@@ -45,8 +45,6 @@ if(strtoupper($_SERVER['REQUEST_METHOD']) === 'POST'){
     <input type="date" name="start_date" id="start_date">
     <label for="due_date">Due Date</label>
     <input type="date" name="due_date" id="due_date">
-
     <button type="submit">Create Task</button>
-
   </form>
 <?php include(  "../partials/footer.php") ?>

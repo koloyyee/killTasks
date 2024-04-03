@@ -1,7 +1,9 @@
 <?php
+
 /**
  * Task update page.
  */
+
 declare(strict_types=1);
 include_once("../service/task.php");
 include_once("../utils/checkers.php");
@@ -11,6 +13,8 @@ include_once("../partials/status_options.php");
 session_start();
 
 $task_id = 0;
+$task = $task_name = $task_description = $status = $category = "";
+$team = $start_date = $due_date = $created_at = $update_at = "" ;
 /**
  * Task id is passed as a query parameter with GET method
  */

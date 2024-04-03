@@ -58,7 +58,6 @@ if (isset($_SESSION['first_name']) && isset($_SESSION['last_name'])) {
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <?php foreach ($items as $li => $link) : ?>
-
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="<?php echo $link ?>"><?php echo $li ?></a>
               </li>
