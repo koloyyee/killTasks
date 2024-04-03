@@ -49,6 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
   if ($resp->success) {
       unset($_POST);
+      header("Location: ../private/personal.php");
   }
 }
 

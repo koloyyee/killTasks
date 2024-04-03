@@ -35,7 +35,6 @@ if (isset($_GET['task_id'])) {
     $created_at = $task->get_created_at();
     $updated_at = $task->get_updated_at();
   }
-  pprint($task);
 
 }
 
