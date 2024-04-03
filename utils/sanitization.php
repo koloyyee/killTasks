@@ -11,7 +11,7 @@ enum Input
 /**
  * Sanitize input data
  */
-function sanitize(string | int $input, Input $type) : string 
+function sanitize(string | int $input, Input $type) : string | int 
 {
   $input = trim($input);
   switch ($type) {
@@ -20,7 +20,7 @@ function sanitize(string | int $input, Input $type) : string
     case Input::password:
       return password_hash($input, PASSWORD_DEFAULT);
     case Input::number:
-      return filter_var($input, FILTER_SANITIZE_NUMBER_INT);
+      return intval(filter_var($input, FILTER_SANITIZE_NUMBER_INT));
     case Input::string:
     default:
       return filter_var($input, FILTER_SANITIZE_SPECIAL_CHARS);

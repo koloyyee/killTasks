@@ -29,6 +29,7 @@ if (isset($_GET['task_id'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $task_id =  $_POST['task_id'] === null ? null : sanitize($_POST['task_id'], Input::number);
   $task_name = sanitize($_POST['task_name'], Input::string);
   $task_description = sanitize($_POST['task_description'], Input::string);
   $user_email = sanitize($_POST['user_email'], Input::string);
@@ -38,16 +39,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $start_date = string_to_date($_POST['start_date'], "Y-m-d");
   $due_date = string_to_date($_POST['due_date'], "Y-m-d");
 
-  $task = new Task(null, $task_name, $task_description, $user_email, $category, $status,  $team, $start_date, $due_date);
-
+  $task = new Task($task_id , $task_name, $task_description, $user_email, $category, $status,  $team, $start_date, $due_date);
   $service = new TaskService();
-  $resp = $service->create_task($task);
+  if($task_id == null) {
+    $resp = $service->create_task($task);
+  } else {
+    $resp = $service->update_task($task);
+  }
   if ($resp->success) {
-    if ($_SERVER['REQUEST_URI'] === "/private/task_update.php") {
-      header("Location: personal.php");
-    } else {
-      header("Location: " . $_SERVER['REQUEST_URI']);
-    }
+      // header("Location: /personal.php");
   }
   unset($_POST);
 }
@@ -64,18 +64,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <input class="form-control" name="task_description" id="task_description" type="text" value="<?php echo  $task_description ?>">
   </label>
   <label class="form-label" for="status">Status
-    <select name="status" id="status" class="form-select" aria-label="select task status">
-      <?php status_options() ?>
+    <select name="status" id="status" class="form-select" aria-label="select task status" >
+      <?php status_options($status) ?>
     </select>
   </label>
   <label class="form-label" for="category"> Category
-    <select name="category" id="status" class="form-select" aria-label="select task status">
-      <?php category_options() ?>
+    <select name="category" id="category" class="form-select" aria-label="select task team">
+      <?php category_options($category) ?>
     </select>
   </label>
   <label class="form-label" for="team"> Team
-    <select name="team" id="status" class="form-select" aria-label="select task status">
-      <?php team_options() ?>
+    <select name="team" id="team" class="form-select" aria-label="select task team">
+      <?php team_options($team) ?>
     </select>
 
   </label>

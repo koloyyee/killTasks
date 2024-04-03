@@ -41,7 +41,6 @@ $json = json_encode($tasks);
 
   /** Show and render all tasks */
   const tasks = <?php echo $json; ?>;
-  console.log(tasks);
 
   const searchInput = document.querySelector("#search_input");
   const filteredTasks = document.querySelector("#filtered_tasks");
@@ -61,8 +60,8 @@ $json = json_encode($tasks);
     filtered.forEach((task) => {
       const div = document.createElement("div");
       div.innerHTML = `
-<a href="../private/task_view.php?task_id=${task.task_id}">
-<div class="card" style="width: 18rem;">
+<a class="text-decoration-none" href="../private/task_view.php?task_id=${task.task_id}">
+<div class="card" style="width: 18rem; margin-bottom: 1rem;">
   <ul class="list-group list-group-flush">
     <li class="list-group-item">${task.task_name}</li>
     <li class="list-group-item">${task.user_email}</li>

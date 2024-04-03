@@ -15,10 +15,10 @@ if (isset($_GET["task_id"])) {
     $status = ucwords($task->get_status());
     $category = ucwords($task->get_category());
     $team = ucwords($task->get_team());
-    $start_date = string_to_date($task->get_start_date(), 'Y/m/d');
-    $due_date = string_to_date($task->get_due_date(), 'Y/m/d');
+    $start_date = $task->get_start_date()  != "" ? string_to_date($task->get_start_date(), 'Y/m/d') : "";
+    $due_date = $task->get_due_date()!= "" ?  string_to_date($task->get_due_date(), 'Y/m/d') : "";
     $created_at = string_to_date($task->get_created_at(), 'Y/m/d');
-    $update_at = string_to_date($task->get_updated_at(), 'Y/m/d');
+    $update_at = $task->get_updated_at() != ""  ? string_to_date($task->get_updated_at(), 'Y/m/d'): "" ;
   }
 }
 ?>

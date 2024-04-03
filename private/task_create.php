@@ -23,6 +23,7 @@ if(strtoupper($_SERVER['REQUEST_METHOD']) === 'POST'){
   if ($resp) {
     header("Location: personal.php");
   }
+  unset($POST);
 }
 
 ?>

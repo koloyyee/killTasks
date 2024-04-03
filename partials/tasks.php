@@ -23,6 +23,7 @@ $json = json_encode($groupByStatus);
  * handle update with $_GET variables
  */
 if (strtoupper($_SERVER['REQUEST_METHOD']) === 'GET') {
+  ob_start();
   if (isset($_GET['task_id']) && isset($_GET['method'])) {
     $task_id = $_GET['task_id'];
     $method = $_GET['method'];
@@ -31,7 +32,8 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) === 'GET') {
     } else if ($method === "delete") {
       $task_service->delete_task(intval($task_id));
     }
-      header("Location: ./personal.php");
+    ob_flush();
+    // header("Location: ./personal.php");
   }
 }
 
@@ -88,7 +90,7 @@ function status_color(string $status): string
             <td><?php echo string_to_date($task->get_due_date(), "yy/m/d") ?? "" ?></td>
             <?php if ($status !== "completed") : ?>
               <td> <a href=<?= "../private/personal.php?task_id=" . $task->get_task_id() . "&method=completed"; ?>>Completed </a></td>
-              <td> <a href=<?= "../private/task_update.php?task_id=" . $task->get_task_id(); ?> > Update Task </a></td>
+              <td> <a href=<?= "../private/task_update.php?task_id=" . $task->get_task_id(); ?>> Update Task </a></td>
               <td> <a href=<?= "../private/personal.php?task_id=" . $task->get_task_id() . "&method=delete"; ?>>Delete Task</a></td>
             <?php endif ?>
           </tr>
@@ -97,5 +99,3 @@ function status_color(string $status): string
     </table>
   <?php endforeach; ?>
 </main>
-<script>
-</script>

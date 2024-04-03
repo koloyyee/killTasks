@@ -18,8 +18,6 @@ closeButton.addEventListener("click", () => {
   const validate= {
     task_name: false,
     task_description: false,
-    category: false,
-    team: false,
     start_date: false,
     due_date: false,
   };
@@ -52,6 +50,7 @@ function validateInput(elName, validate, message = "Cannot be empty") {
             validate[target.id]= true;
             errSpan.innerHTML = "";
             toggleDisableBtn(validate);
+            console.log(validate);
           }
           break;
       }

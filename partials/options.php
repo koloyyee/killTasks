@@ -4,26 +4,29 @@
  * render options for status select
  * @param array $statuses
  */
-function status_options()
+function status_options(?string $prev_val)
 {
 $statuses = ["Working", "Completed", "Overdue"];
   foreach ($statuses as $status) {
-    echo "<option value='$status'>$status</option>";
+    $selected = strtolower($status) === strtolower($prev_val) ? " selected='selected' " : '' ;
+    echo "<option value='$status' " . $selected. "> $status</option>";
   }
 }
 
-function category_options()
+function category_options(?string $prev_val)
 {
   $categories = ["Budget", "Promotion", "Meetings", "Review", "Other"];
   foreach ($categories as $category) {
-    echo "<option value='$category'>$category</option>";
+    $selected = strtolower($category) === strtolower($prev_val) ? " selected='selected' " : '' ;
+    echo "<option value='$category'" . $selected . ">$category</option>";
   }
 }
 
-function team_options()
+function team_options(?string $prev_val)
 {
   $teams = ["Marketing", "Sales", "Development", "Research", "Other"];
   foreach ($teams as $team) {
-    echo "<option value='$team'>$team</option>";
+    $selected = strtolower($team) === strtolower($prev_val) ? " selected='selected' " : '' ;
+    echo "<option value='$team'" . $selected . ">$team</option>";
   }
 }
