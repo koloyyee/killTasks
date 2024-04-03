@@ -154,14 +154,15 @@ class TaskService
       $stmt = $this->conn->prepare($sql);
       $stmt->bindParam(':task_name', $task_name, PDO::PARAM_STR);
       $stmt->bindParam(':task_description', $task_description, PDO::PARAM_STR);
-      $stmt->bindParam(':user_email', $task->$user_email, PDO::PARAM_STR);
-      $stmt->bindParam(':category', $task->$category, PDO::PARAM_STR);
-      $stmt->bindParam(':status', $task->$status, PDO::PARAM_STR);
-      $stmt->bindParam(':team', $task->$team, PDO::PARAM_STR);
+      $stmt->bindParam(':user_email', $user_email, PDO::PARAM_STR);
+      $stmt->bindParam(':category', $category, PDO::PARAM_STR);
+      $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+      $stmt->bindParam(':team', $team, PDO::PARAM_STR);
       $stmt->bindParam(':start_date', $start_date, PDO::PARAM_STR);
       $stmt->bindParam(':due_date', $due_date, PDO::PARAM_STR);
-      $stmt->bindParam(':due_date', $task->get_due_date(), PDO::PARAM_STR);
       $stmt->execute();
+
+      return new Response(true, "Task created successfully");
     } catch (PDOException $e) {
       echo $e->getMessage();
     }

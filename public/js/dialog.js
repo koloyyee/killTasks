@@ -55,21 +55,30 @@ function validateInput(elName, validate, message = "Cannot be empty") {
           }
           break;
       }
-      console.log(validate);
     });
   });
 }
 
 
-const form = document.querySelector(".create_task_form");
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
-  const formData = new FormData(form);
-  for(const[key, value] of formData.entries()) {
-    console.log(key, value);
-  }
-  // form.reset();
-  // dialog.close();
-});
+// const form = document.querySelector(".create_task_form");
+// form.addEventListener("submit", (event) => {
+//   event.preventDefault();
+  
+//   const formData = new FormData(form);
+//   for(const[key, value] of formData.entries()) {
+//     console.log(key, value);
+//   }
+
+//   fetch("../../partials/forms/task_form.php", {
+//     method: "POST",
+//     body: formData,
+//   }).then((response) => {
+//     console.log(response);
+//   }).catch((error) => { console.log(error); });
+
+
+//   form.reset();
+//   dialog.close();
+// });
 
 validateInput(".create_task_form", validate);

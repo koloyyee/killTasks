@@ -6,7 +6,11 @@ include_once("../utils/checkers.php");
 include_once("../utils/convertors.php");
 include_once("../partials/status_options.php");
 
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
 $user_email = $_SESSION['email'];
+echo $user_email;
 $task_id = 0;
 $task = $task_name = $task_description = $status = $category = "";
 $team = $start_date = $due_date = $created_at = $update_at = "";
@@ -25,30 +29,33 @@ if (isset($_GET['task_id'])) {
   $update_at = $task->get_updated_at();
 }
 
-// if($_SERVER['REQUEST_METHOD'] === 'POST') {
-//   $task_name = sanitize($_POST['task_name'], Input::string);
-//   $task_description = sanitize($_POST['task_description'], Input::string);
-//   $status = sanitize($_POST['status'], Input::string);
-//   $category = sanitize($_POST['category'], Input::string);
-//   $team = sanitize($_POST['team'], Input::string);
-//   $start_date = $_POST['start_date'];
-//   $due_date = $_POST['due_date'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $task_name = sanitize($_POST['task_name'], Input::string);
+  $task_description = sanitize($_POST['task_description'], Input::string);
+  $user_email= sanitize($_POST['user_email'], Input::string);
+  $status = sanitize($_POST['status'], Input::string);
+  $category = sanitize($_POST['category'], Input::string);
+  $team = sanitize($_POST['team'], Input::string);
+  $start_date = string_to_date($_POST['start_date'], "Y-m-d");
+  $due_date= string_to_date($_POST['due_date'], "Y-m-d");
 
-//   $task = new Task(null, $task_name, $task_description, $user_email, $category, $status,  $team, $start_date, $due_date);
 
-//   // header("Location: personal.php");
-//   $service = new TaskService();
-//   // $resp = $service->create_task($task);
-//   // if ($resp) {
-//   // }
-// }
+
+  $task = new Task(null, $task_name, $task_description, $user_email, $category, $status,  $team, $start_date, $due_date);
+
+  $service = new TaskService();
+  $resp = $service->create_task($task);
+  // var_dump($task);
+  // var_dump($resp);
+  // if ($resp->success) {
+  //   header("Location: " . $_SERVER['REQUEST_URI']);
+  // }
+}
 
 ?>
-
-
-
 <form class="create_task_form d-flex flex-column w-50  border rounded p-2 " action="<?php echo $_SERVER['REQUEST_URI'] ?>" method="POST">
   <input type="hidden" name="task_id" value="<?= $task_id ?>">
+  <input type="hidden" name="user_email" value="<?= $user_email?>">
   <label class="form-label" for="task_name"> Task Name
     <input class="form-control" name="task_name" id="task_name" type="text" value="<?php echo $task_name ?>">
   </label>
@@ -98,6 +105,35 @@ if (isset($_GET['task_id'])) {
 </form>
 
 <script>
-  let task = <?= json_encode($task) ?>;
-  console.log(task);
+  const currPath = window.location.pathname;
+
+  const phpPath = "<?= $_SERVER['REQUEST_URI'] ?>";
+
+
+  console.log({
+    currPath,
+    phpPath
+  });
+
+  // const form = document.querySelector(".create_task_form");
+  // form.addEventListener("submit", (event) => {
+  //   event.preventDefault();
+  //   const formData = new FormData(form);
+  //   for (const [key, value] of formData.entries()) {
+  //     console.log(key, value);
+  //   }
+
+  //   fetch(".", {
+  //     method: "POST",
+  //     body: formData,
+  //   }).then((response) => {
+  //     console.log(response);
+  //   }).catch((error) => {
+  //     console.log(error);
+  //   });
+
+
+  //   form.reset();
+  //   dialog.close();
+  // });
 </script>
