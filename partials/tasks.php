@@ -89,8 +89,8 @@ function status_color(string $status): string
             <td><span class="<?php echo "badge text-bg-" . status_color($task->get_status()); ?>"><?php echo ucwords($task->get_status()); ?></span></td>
             <td><?php echo ucwords($task->get_category())  ?? "" ?></td>
             <td><?php echo ucwords($task->get_team()) ?? "" ?></td>
-            <td><?php echo string_to_date($task->get_start_date(), 'yy/m/d') ?? "" ?></td>
-            <td><?php echo string_to_date($task->get_due_date(), "yy/m/d") ?? "" ?></td>
+            <td><?php echo string_to_date($task->get_start_date(), 'Y/m/d') ?? "" ?></td>
+            <td><?php echo string_to_date($task->get_due_date(), "Y/m/d") ?? "" ?></td>
             <?php if ($status !== "completed") : ?>
               <td> <a href=<?= "../private/personal.php?task_id=" . $task->get_task_id() . "&method=completed"; ?>>Completed </a></td>
               <td> <a href=<?= "../private/task_update.php?task_id=" . $task->get_task_id(); ?>> Update Task </a></td>

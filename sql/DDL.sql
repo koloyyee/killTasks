@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: Mar 29, 2024 at 10:32 PM
+-- Generation Time: Apr 03, 2024 at 10:02 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -94,94 +94,46 @@ CREATE TABLE `task` (
   `task_id` int(11) NOT NULL,
   `task_name` varchar(255) DEFAULT NULL,
   `task_description` varchar(255) DEFAULT NULL,
-  `status_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `team_id` int(11) DEFAULT NULL,
-  `category_id` int(11) DEFAULT NULL,
+  `user_email` varchar(50) NOT NULL,
+  `category` varchar(50) NOT NULL,
+  `status` varchar(50) NOT NULL DEFAULT 'working',
+  `team` varchar(50) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NULL DEFAULT NULL,
+  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `start_date` timestamp NULL DEFAULT NULL,
-  `due_date` timestamp NULL DEFAULT NULL
+  `due_date` timestamp NULL DEFAULT NULL,
+  `deleted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `task`
 --
 
-INSERT INTO `task` (`task_id`, `task_name`, `task_description`, `status_id`, `user_id`, `team_id`, `category_id`, `created_at`, `updated_at`, `start_date`, `due_date`) VALUES
-(1, 'first task', 'for testing data', 1, 1, 1, 1, '2024-03-24 23:01:32', NULL, NULL, NULL);
+INSERT INTO `task` (`task_id`, `task_name`, `task_description`, `user_email`, `category`, `status`, `team`, `created_at`, `updated_at`, `start_date`, `due_date`, `deleted`) VALUES
+(4, 'First Task', 'First task description', 'ko000029@algonquinlive.com', 'budget', '', NULL, '2024-03-30 02:59:48', '2024-04-01 11:38:22', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(8, 'Hello', 'First task now Update', 'test@killtasks.com', 'review', 'working', 'marketing', '2024-04-03 13:01:45', '2024-04-03 13:24:02', '2024-04-15 04:00:00', '2024-04-09 04:00:00', 0),
+(25, 'HEllo', 'world', 'test@killtasks.com', 'budget', 'completed', 'development', '2024-04-03 17:14:39', '2024-04-03 13:23:54', '2024-04-15 04:00:00', '2024-04-30 04:00:00', 0),
+(26, 'HEllo', 'world', 'test@killtasks.com', 'budget', 'working', 'marketing', '2024-04-03 17:14:40', '2024-04-03 14:23:17', '2024-04-15 04:00:00', '2024-04-30 04:00:00', 1),
+(27, 'obstart?', 'obflush?', 'test@killtasks.com', 'budget', 'overdue', 'marketing', '2024-04-03 17:23:28', '2024-04-03 15:08:11', '2024-04-24 04:00:00', '2024-04-29 04:00:00', 0),
+(28, 'complet', 'completed', 'test@killtasks.com', 'budget', 'completed', 'marketing', '2024-04-03 17:24:22', '2024-04-03 13:24:22', '2024-04-23 04:00:00', '2024-04-28 04:00:00', 0),
+(29, 'HIJV', 'Hi Name!!!', 'test@killtasks.com', 'budget', 'overdue', 'research', '2024-04-03 19:32:26', '2024-04-03 15:32:46', '2024-04-10 04:00:00', '2024-04-22 04:00:00', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `task_category`
+-- Table structure for table `task_s`
 --
 
-CREATE TABLE `task_category` (
+CREATE TABLE `task_s` (
   `task_id` int(11) NOT NULL,
-  `category_id` int(11) NOT NULL
+  `task_name` varchar(255) DEFAULT NULL,
+  `task_description` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `start_date` timestamp NULL DEFAULT NULL,
+  `due_date` timestamp NULL DEFAULT NULL,
+  `deleted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `task_category`
---
-
-INSERT INTO `task_category` (`task_id`, `category_id`) VALUES
-(1, 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `task_status`
---
-
-CREATE TABLE `task_status` (
-  `task_id` int(11) DEFAULT NULL,
-  `status_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `task_status`
---
-
-INSERT INTO `task_status` (`task_id`, `status_id`) VALUES
-(1, 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `task_team`
---
-
-CREATE TABLE `task_team` (
-  `task_id` int(11) DEFAULT NULL,
-  `team_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `task_team`
---
-
-INSERT INTO `task_team` (`task_id`, `team_id`) VALUES
-(1, 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `task_user`
---
-
-CREATE TABLE `task_user` (
-  `task_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `task_user`
---
-
-INSERT INTO `task_user` (`task_id`, `user_id`) VALUES
-(1, 1);
 
 -- --------------------------------------------------------
 
@@ -216,17 +168,36 @@ CREATE TABLE `user` (
   `last_name` varchar(50) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL COMMENT 'hash with password_hash()',
-  `role_id` int(11) DEFAULT 3,
-  `team_id` int(11) DEFAULT NULL
+  `role` varchar(50) NOT NULL DEFAULT 'member',
+  `team` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='general user of the application ';
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `first_name`, `last_name`, `email`, `password`, `role_id`, `team_id`) VALUES
-(1, 'test', 'user', 'test@killtasks.com', '$2y$10$WGJJkj3U.hOnUQhSyBtiBOhQa7Q64FyW1tDmHu./4OI6kAI26qq2.', 1, 2),
-(2, 'Loy Yee', 'Ko', 'ko000029@algonquinlive.com', '$2y$10$Vbuc9Cms6Xm642paqCLYjuDxaqfIgczMujTkeNAK2isZDe8KcUxiW', 3, 2);
+INSERT INTO `user` (`user_id`, `first_name`, `last_name`, `email`, `password`, `role`, `team`) VALUES
+(1, 'First', 'user', 'test@killtasks.com', '$2y$10$WGJJkj3U.hOnUQhSyBtiBOhQa7Q64FyW1tDmHu./4OI6kAI26qq2.', '0', '0'),
+(2, 'Loy Yee', 'Ko', 'ko000029@algonquinlive.com', '$2y$10$Vbuc9Cms6Xm642paqCLYjuDxaqfIgczMujTkeNAK2isZDe8KcUxiW', 'member', ''),
+(12, 'David', 'Ko', 'ko000029@algonquincollege.com', '$2y$10$dXZC43Pr7bUPwhFe0dK0xOhiT/d5mCnpb6/MgvahE8.NU3GgtbJF.', 'member', ''),
+(13, 'Loy Yee', 'Ko', 'koloyyee@algonquin.com', '$2y$10$HY0JdkSNpauvNA4W2mCFleCLDwP6ClAGrEvmz0id9zAJfexWqtc6G', 'member', ''),
+(15, 'ko000029@algo.com', 'ko000029@algo.com', 'ko000029@algo.com', '$2y$10$5GvYVl7YI/kzMw1YNNzT5ejEXXX7Qg2GjUnS.b9FMDV.sUChrlv9m', 'member', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_s`
+--
+
+CREATE TABLE `user_s` (
+  `user_id` int(11) NOT NULL COMMENT 'pk user_id',
+  `first_name` varchar(50) NOT NULL,
+  `last_name` varchar(50) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL COMMENT 'hash with password_hash()',
+  `role_id` int(11) DEFAULT 3,
+  `team_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='general user of the application ';
 
 --
 -- Indexes for dumped tables
@@ -254,39 +225,13 @@ ALTER TABLE `status`
 -- Indexes for table `task`
 --
 ALTER TABLE `task`
-  ADD PRIMARY KEY (`task_id`),
-  ADD KEY `fk_status_id` (`status_id`),
-  ADD KEY `fk_user_id` (`user_id`),
-  ADD KEY `fk_category_id` (`category_id`),
-  ADD KEY `fk_team_id` (`team_id`);
+  ADD PRIMARY KEY (`task_id`);
 
 --
--- Indexes for table `task_category`
+-- Indexes for table `task_s`
 --
-ALTER TABLE `task_category`
-  ADD KEY `fk_tc_task_id` (`task_id`),
-  ADD KEY `fk_tc_category_id` (`category_id`);
-
---
--- Indexes for table `task_status`
---
-ALTER TABLE `task_status`
-  ADD KEY `fk_ts_task_id` (`task_id`),
-  ADD KEY `fk_ts_statisu_id` (`status_id`);
-
---
--- Indexes for table `task_team`
---
-ALTER TABLE `task_team`
-  ADD KEY `fk_tt_task_id` (`task_id`),
-  ADD KEY `fk_tt_team_id` (`team_id`);
-
---
--- Indexes for table `task_user`
---
-ALTER TABLE `task_user`
-  ADD KEY `fk_tu_task_id` (`task_id`),
-  ADD KEY `fk_tu_user_id` (`user_id`);
+ALTER TABLE `task_s`
+  ADD PRIMARY KEY (`task_id`);
 
 --
 -- Indexes for table `team`
@@ -298,6 +243,13 @@ ALTER TABLE `team`
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
+  ADD PRIMARY KEY (`user_id`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
+-- Indexes for table `user_s`
+--
+ALTER TABLE `user_s`
   ADD PRIMARY KEY (`user_id`),
   ADD UNIQUE KEY `email` (`email`),
   ADD KEY `fk_role_id` (`role_id`),
@@ -329,7 +281,13 @@ ALTER TABLE `status`
 -- AUTO_INCREMENT for table `task`
 --
 ALTER TABLE `task`
-  MODIFY `task_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `task_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+
+--
+-- AUTO_INCREMENT for table `task_s`
+--
+ALTER TABLE `task_s`
+  MODIFY `task_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `team`
@@ -341,55 +299,13 @@ ALTER TABLE `team`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'pk user_id', AUTO_INCREMENT=12;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'pk user_id', AUTO_INCREMENT=27;
 
 --
--- Constraints for dumped tables
+-- AUTO_INCREMENT for table `user_s`
 --
-
---
--- Constraints for table `task`
---
-ALTER TABLE `task`
-  ADD CONSTRAINT `fk_category_id` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`),
-  ADD CONSTRAINT `fk_status_id` FOREIGN KEY (`status_id`) REFERENCES `status` (`status_id`),
-  ADD CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
-  ADD CONSTRAINT `task_ibfk_1` FOREIGN KEY (`team_id`) REFERENCES `team` (`team_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `task_category`
---
-ALTER TABLE `task_category`
-  ADD CONSTRAINT `fk_tc_category_id` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`),
-  ADD CONSTRAINT `fk_tc_task_id` FOREIGN KEY (`task_id`) REFERENCES `task` (`task_id`);
-
---
--- Constraints for table `task_status`
---
-ALTER TABLE `task_status`
-  ADD CONSTRAINT `fk_ts_statisu_id` FOREIGN KEY (`status_id`) REFERENCES `status` (`status_id`),
-  ADD CONSTRAINT `fk_ts_task_id` FOREIGN KEY (`task_id`) REFERENCES `task` (`task_id`);
-
---
--- Constraints for table `task_team`
---
-ALTER TABLE `task_team`
-  ADD CONSTRAINT `fk_tt_task_id` FOREIGN KEY (`task_id`) REFERENCES `task` (`task_id`),
-  ADD CONSTRAINT `fk_tt_team_id` FOREIGN KEY (`team_id`) REFERENCES `team` (`team_id`);
-
---
--- Constraints for table `task_user`
---
-ALTER TABLE `task_user`
-  ADD CONSTRAINT `fk_tu_task_id` FOREIGN KEY (`task_id`) REFERENCES `task` (`task_id`),
-  ADD CONSTRAINT `fk_tu_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
-
---
--- Constraints for table `user`
---
-ALTER TABLE `user`
-  ADD CONSTRAINT `fk_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`role_id`),
-  ADD CONSTRAINT `fk_team_id` FOREIGN KEY (`team_id`) REFERENCES `team` (`team_id`);
+ALTER TABLE `user_s`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'pk user_id';
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
