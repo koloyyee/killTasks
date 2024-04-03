@@ -11,7 +11,7 @@ include_once("../utils/checkers.php");
 include_once("../partials/options.php");
 
 session_start();
-
+echo "Durra";
 
 if (strtoupper($_SERVER['REQUEST_METHOD']) === 'GET') {
   $service = new UserService();
