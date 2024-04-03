@@ -9,7 +9,7 @@ include_once("../utils/convertors.php");
 
 $task_service = new TaskService();
 $tasks =  $task_service->get_tasks_by_user($_SESSION['email']);
-
+// pprint($tasks);
 /**
  * Group tasks by status
  */
@@ -84,8 +84,8 @@ function status_color(string $status): string
             <td><span class="<?php echo "badge text-bg-" . status_color($task->get_status()); ?>"><?php echo ucwords($task->get_status()); ?></span></td>
             <td><?php echo ucwords($task->get_category())  ?? "" ?></td>
             <td><?php echo ucwords($task->get_team()) ?? "" ?></td>
-            <td><?php echo string_to_date($task->get_start_date(), 'd/m/y') ?? "" ?></td>
-            <td><?php echo string_to_date($task->get_due_date(), "d/m/y") ?? "" ?></td>
+            <td><?php echo string_to_date($task->get_start_date(), 'yy/m/d') ?? "" ?></td>
+            <td><?php echo string_to_date($task->get_due_date(), "yy/m/d") ?? "" ?></td>
             <?php if ($status !== "completed") : ?>
               <td> <a href=<?= "../private/personal.php?task_id=" . $task->get_task_id() . "&method=completed"; ?>>Completed </a></td>
               <td> <a href=<?= "../private/task_update.php?task_id=" . $task->get_task_id(); ?> > Update Task </a></td>
@@ -98,8 +98,6 @@ function status_color(string $status): string
   <?php endforeach; ?>
 </main>
 <script>
-  const tasks = JSON.parse(`<?php echo $groupByStatus ?>`);
-  console.log({tasks})
-  // create the table
-  console.log(<?php echo $status?>)
+  const method = "<?= $method ?>";
+  console.log(method);  
 </script>

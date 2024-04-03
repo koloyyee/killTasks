@@ -13,6 +13,12 @@
     padding-bottom: 1rem;
 }
 
+#show_dialog_btn {
+  margin-right:10%;
+  position: relative;
+  left: 90%;
+  bottom: 5%;
+}
 
 ::backdrop {
   /* background-image: linear-gradient(

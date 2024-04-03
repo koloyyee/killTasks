@@ -58,7 +58,9 @@ class TaskService
     try {
       $sql = "SELECT * FROM task t 
              WHERE user_email = :user_email 
+             AND deleted IS FALSE
              ORDER BY status DESC, created_at;
+             
              ";
 
       $stmt = $this->conn->prepare($sql);

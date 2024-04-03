@@ -4,13 +4,12 @@ declare(strict_types=1);
 include_once("../service/task.php");
 include_once("../utils/checkers.php");
 include_once("../utils/convertors.php");
-include_once("../partials/status_options.php");
+include_once("../partials/options.php");
 
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
 $user_email = $_SESSION['email'];
-echo $user_email;
 $task_id = 0;
 $task = $task_name = $task_description = $status = $category = "";
 $team = $start_date = $due_date = $created_at = $update_at = "";
@@ -32,30 +31,31 @@ if (isset($_GET['task_id'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $task_name = sanitize($_POST['task_name'], Input::string);
   $task_description = sanitize($_POST['task_description'], Input::string);
-  $user_email= sanitize($_POST['user_email'], Input::string);
+  $user_email = sanitize($_POST['user_email'], Input::string);
   $status = sanitize($_POST['status'], Input::string);
   $category = sanitize($_POST['category'], Input::string);
   $team = sanitize($_POST['team'], Input::string);
   $start_date = string_to_date($_POST['start_date'], "Y-m-d");
-  $due_date= string_to_date($_POST['due_date'], "Y-m-d");
-
-
+  $due_date = string_to_date($_POST['due_date'], "Y-m-d");
 
   $task = new Task(null, $task_name, $task_description, $user_email, $category, $status,  $team, $start_date, $due_date);
 
   $service = new TaskService();
   $resp = $service->create_task($task);
-  // var_dump($task);
-  // var_dump($resp);
-  // if ($resp->success) {
-  //   header("Location: " . $_SERVER['REQUEST_URI']);
-  // }
+  if ($resp->success) {
+    if ($_SERVER['REQUEST_URI'] === "/private/task_update.php") {
+      header("Location: personal.php");
+    } else {
+      header("Location: " . $_SERVER['REQUEST_URI']);
+    }
+  }
+  unset($_POST);
 }
 
 ?>
 <form class="create_task_form d-flex flex-column w-50  border rounded p-2 " action="<?php echo $_SERVER['REQUEST_URI'] ?>" method="POST">
   <input type="hidden" name="task_id" value="<?= $task_id ?>">
-  <input type="hidden" name="user_email" value="<?= $user_email?>">
+  <input type="hidden" name="user_email" value="<?= $user_email ?>">
   <label class="form-label" for="task_name"> Task Name
     <input class="form-control" name="task_name" id="task_name" type="text" value="<?php echo $task_name ?>">
   </label>
@@ -65,14 +65,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </label>
   <label class="form-label" for="status">Status
     <select name="status" id="status" class="form-select" aria-label="select task status">
-      <?php status_options($statuses) ?>
+      <?php status_options() ?>
     </select>
   </label>
   <label class="form-label" for="category"> Category
-    <input class="form-control" name="category" id="category" type="text" value="<?= $category ?>">
+    <select name="category" id="status" class="form-select" aria-label="select task status">
+      <?php category_options() ?>
+    </select>
   </label>
   <label class="form-label" for="team"> Team
-    <input class="form-control" name="team" id="team" type="text" value="<?= $team ?>">
+    <select name="team" id="status" class="form-select" aria-label="select task status">
+      <?php team_options() ?>
+    </select>
+
   </label>
   <label class="form-label" for="start_date"> Start Date
     <input class="form-control" name="start_date" id="start_date" type="date" value="<?= string_to_date($start_date) ?>">
