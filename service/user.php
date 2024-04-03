@@ -2,6 +2,7 @@
 declare(strict_types=1);
 include_once("../model/user.php");
 include_once("../model/response.php");
+include_once("../config/pdo.php");
 /**
  * User Service
  * CRUD operations for users 
@@ -59,8 +60,8 @@ class UserService
           $result['last_name'],
           $result['email'],
           $result['password'],
-          $result['role_name'],
-          $result['team_name']
+          $result['role'],
+          $result['team']
         );
       }
       return null;

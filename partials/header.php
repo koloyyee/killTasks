@@ -12,7 +12,7 @@ if (session_status() === PHP_SESSION_NONE) {
 $uri = $_SERVER['REQUEST_URI'];
 $is_login = str_contains(strtolower($uri), "login");
 $is_register = str_contains(strtolower($uri), "register");
-
+$email = $_SESSION['email'] ?? "" ;
 
 if (!$is_login && !$is_register) {
   if (!isset($_SESSION['email'])) {
@@ -61,7 +61,7 @@ if (isset($_SESSION['first_name']) && isset($_SESSION['last_name'])) {
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <?php foreach ($items as $li => $link) : ?>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="<?php echo $link ?>"><?php echo $li ?></a>
+                <a class="nav-link active" aria-current="page" href="<?= $li === "Setting" ? "$link?=user_email=$email": $link ?>"><?php echo $li ?></a>
               </li>
             <?php endforeach; ?>
           </ul>

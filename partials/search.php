@@ -18,9 +18,9 @@ $tasks = $service->get_tasks();
 $json = json_encode($tasks);
 ?>
 <dialog id="search_dialog">
-  <input type="text" id="search_input" class="form-control">
+  <input type="text" id="search_input" class="form-control w-50">
   <div id="filtered_tasks"></div>
-  <button class="btn btn-lg btn-danger" id="close_search_dialog"> Close</button>
+  <button class="btn btn-sm btn-danger mt-2" id="close_search_dialog"> Close</button>
 </dialog>
 
 <button class="btn btn-lg btn-secondary" id="show_search_dialog">Search </button>
@@ -47,6 +47,10 @@ $json = json_encode($tasks);
 
   searchInput.addEventListener("keyup", (event) => {
     const value = event.target.value;
+    if (value === "") {
+      filteredTasks.innerHTML = "";
+      return;
+    }
     const filtered = tasks.filter((task) => {
       return task.task_name.toLowerCase().includes(value.toLowerCase()) ||
         task.task_description.toLowerCase().includes(value.toLowerCase()) ||
@@ -63,8 +67,10 @@ $json = json_encode($tasks);
 <a class="text-decoration-none" href="../private/task_view.php?task_id=${task.task_id}">
 <div class="card" style="width: 18rem; margin-bottom: 1rem;">
   <ul class="list-group list-group-flush">
-    <li class="list-group-item">${task.task_name}</li>
-    <li class="list-group-item">${task.user_email}</li>
+    <li class="list-group-item">
+    ${task.task_name} by ${task.user_email} 
+     <span class="badge text-bg-${statusColor(task.status)}"> ${task.status }</span>
+    </li>
   </ul>
 </div> 
 </a>
@@ -72,4 +78,16 @@ $json = json_encode($tasks);
       filteredTasks.appendChild(div);
     });
   })
+  function statusColor(status) {
+    switch (status) {
+      case "working":
+        return "warning";
+      case "completed":
+        return "success";
+      case "overdue":
+        return "danger";
+      default:
+        return "warning";
+    }
+  }
 </script>

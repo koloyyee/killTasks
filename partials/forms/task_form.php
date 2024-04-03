@@ -74,12 +74,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <?php category_options($category) ?>
     </select>
   </label>
+  <div class="form-group">
   <label class="form-label" for="team"> Team
     <select name="team" id="team" class="form-select" aria-label="select task team">
       <?php team_options($team) ?>
     </select>
-
   </label>
+
+  </div>
   <label class="form-label" for="start_date"> Start Date
     <input class="form-control" name="start_date" id="start_date" type="date" value="<?= string_to_date($start_date, 'Y-m-d') ?>">
   </label>

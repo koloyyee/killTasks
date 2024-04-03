@@ -30,3 +30,12 @@ function team_options(?string $prev_val)
     echo "<option value='$team'" . $selected . ">$team</option>";
   }
 }
+
+function role_options(?string $prev_val)
+{
+  $teams = ["Admin", "Manager", "Member"];
+  foreach ($teams as $team) {
+    $selected = strtolower($team) === strtolower($prev_val) ? " selected='selected' " : '' ;
+    echo "<option value='$team'" . $selected . ">$team</option>";
+  }
+}
