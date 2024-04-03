@@ -98,6 +98,4 @@ function status_color(string $status): string
   <?php endforeach; ?>
 </main>
 <script>
-  const method = "<?= $method ?>";
-  console.log(method);  
 </script>

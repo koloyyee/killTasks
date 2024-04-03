@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Search Modal form
  * when the user clicks on the search input
@@ -7,26 +8,35 @@
  * 
  * This is will be a frontend search. 
  */
+
 declare(strict_types=1);
 include_once("../service/task.php");
-include_once("../config/pdo.php");
+include_once("../utils/convertors.php");
 
 $service = new TaskService();
 $tasks = $service->get_tasks();
-$json = json_encode($tasks);
-
 ?>
-<!-- <form class="d-flex" role="search">
-  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-  <button class="btn btn-outline-success" type="submit">Search</button>
-</form> -->
-  
-  <button><input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"></button>
+<dialog id="search_dialog">
+  <input type="text" id="search_input" class="form-control">
+  <button class="btn btn-lg btn-danger" id="close_search_dialog"> Close</button>
+</dialog>
+
+<button class="btn btn-lg btn-secondary" id="show_search_dialog">Search </button>
 <script>
-  const json = <?php echo $json ?>;
-  console.log(json);
   /**
    * JavaScript dynamically generate HTML elements
    * to list the tasks in the search modal.
    */
+  const dialog = document.querySelector("#search_dialog");
+  const showButton = document.querySelector("#show_search_dialog");
+  const closeButton = document.querySelector("#close_search_dialog");
+  // "Show the dialog" button opens the dialog modally
+  showButton.addEventListener("click", () => {
+    dialog.showModal();
+  });
+
+  // "Close" button closes the dialog
+  closeButton.addEventListener("click", () => {
+    dialog.close();
+  });
 </script>

@@ -20,7 +20,7 @@ class TaskService
     $this->conn = $pdo->get_pdo();
   }
 
-  public function get_tasks()
+  public function get_tasks(): array
   {
     try {
       $sql = "SELECT * FROM task t order by status desc , created_at";
@@ -29,25 +29,26 @@ class TaskService
       $statement->execute();
       $result =  $statement->fetchAll(PDO::FETCH_ASSOC);
 
-      $tasks = [];
       if (!empty($result)) {
-        foreach ($result as $row) {
-          $task = new Task(
-            $row['task_id'],
-            $row['task_name'],
-            $row['task_description'],
-            $row['user_email'],
-            $row['category'],
-            $row['status'],
-            $row['team'],
-            $row['start_date'],
-            $row['due_date'],
-            $row['created_at'],
-            $row['updated_at']
-          );
-          array_push($tasks, $task);
-        }
-        return $tasks;
+        $tasks = [];
+        return $result;
+        // foreach ($result as $row) {
+        //   $task = new Task(
+        //     $row['task_id'],
+        //     $row['task_name'],
+        //     $row['task_description'],
+        //     $row['user_email'],
+        //     $row['category'],
+        //     $row['status'],
+        //     $row['team'],
+        //     $row['start_date'],
+        //     $row['due_date'],
+        //     $row['created_at'],
+        //     $row['updated_at']
+        //   );
+        //   array_push($tasks, $task);
+        // }
+        // return $tasks;
       }
     } catch (PDOException $e) {
       echo $e->getMessage();
