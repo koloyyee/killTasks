@@ -16,12 +16,12 @@ class User {
   private ?int $user_id;
   private string $first_name;
   private string $last_name;
-  private string $password;
+  private ?string $password;
   private string $email;
   private ?string $role;
   private ?string $team;
 
-  function __construct(?int $user_id, string $first_name, string $last_name, string $email, string $password, ?string $role = null, ?string $team = null) {
+  function __construct(?int $user_id, string $first_name, string $last_name, string $email, ?string $password, ?string $role = null, ?string $team = null) {
     $this->user_id = $user_id;
     $this->first_name = $first_name;
     $this->last_name = $last_name;

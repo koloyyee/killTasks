@@ -138,11 +138,9 @@ class UserService
 
   public function update_user(User $user)
   {
-    $user_id = $user->get_user_id();
     $first_name = $user->get_first_name();
     $last_name = $user->get_last_name();
     $email = $user->get_email();
-    $password = $user->get_password();
     $role = $user->get_role();
     $team = $user->get_team();
 
@@ -151,16 +149,14 @@ class UserService
     first_name = :first_name, 
     last_name = :last_name, 
     email = :email, 
-    password = :password, 
     role = :role, 
     team = :team
-    WHERE user_id = :user_id";
+    WHERE email = :email";
     try {
       $stmt = $this->conn->prepare($sql);
       $stmt->bindParam(':first_name', $first_name, PDO::PARAM_STR);
       $stmt->bindParam(':last_name', $last_name, PDO::PARAM_STR);
       $stmt->bindParam(":email", $email, PDO::PARAM_STR);
-      $stmt->bindParam(":password", $password, PDO::PARAM_STR);
       $stmt->bindParam(":role", $role, PDO::PARAM_INT);
       $stmt->bindParam(":team", $team, PDO::PARAM_INT);
 
