@@ -66,7 +66,7 @@ if (isset($_SESSION['first_name']) && isset($_SESSION['last_name'])) {
             <?php endforeach; ?>
           </ul>
           <?php include("search.php") ?>
-          <a class="navbar-brand d-flex gap-2 mx-3" href="#">
+          <a class="navbar-brand d-flex gap-2 mx-3" href="../private/dashboard.php">
             <img id="logo" alt="killtasks logo" src="../assets/logo.jpg">
             <div class="align-self-end">
               <h4> KillTasks</h4>
