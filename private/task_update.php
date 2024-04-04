@@ -57,8 +57,6 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST') {
   $updated_at= $_POST['updated_at'];
 
   $task = new Task(intval($task_id), $task_name, $task_description, $user_email, $category, $status,  $team, $start_date, $due_date, $created_at, $updated_at);
-  echo "POST";
-  pprint($_POST);
   $service = new TaskService();
   $resp = $service->update_task($task);
   if ($resp) {
@@ -105,7 +103,7 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST') {
     <input type="hidden" name="created_at" id="created_at" value="<?= $created_at ?>">
     <input type="hidden" name="updated_at" id="updated_at" value="<?= $update_at ?>">
     <?php if (string_to_date($update_at) !== "") : ?>
-      <small>Last Update: <?= date("d/m/Y", strtotime($update_at)) ?> </small>
+      <small>Last Update: <?= string_to_date($update_at, "Y/m/d") ?> </small>
     <?php endif ?>
   <?php endif ?>
   <div class="d-flex gap-2">
@@ -122,5 +120,4 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST') {
 </form>
 </main>
         <?php echo back_btn(); ?>
-  <!-- <button  class="btn btn-secondary btn-sm" ><a  class=" link-light" href=> < Go Back </a></button>  -->
 <?php include("../partials/footer.php") ?>

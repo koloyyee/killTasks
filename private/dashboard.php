@@ -26,7 +26,6 @@ if (!isset($tasks) || empty($tasks)) {
   }
 }
 $dup_teams = array_map(fn ($task): string => $task->get_team(), $tasks);
-// Ds\Set::create($teams);
 function set(array $data): array
 {
   $result = [];
