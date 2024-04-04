@@ -12,8 +12,7 @@ if(isset($_SESSION['user_id'])) {
 }
 ?>
 <?php include("./partials/header.php") ?>
-  <!-- <canvas id="myChart"></canvas> -->
-</div>
+
 <?php include("./partials/footer.php") ?>
 <script>
 </script>

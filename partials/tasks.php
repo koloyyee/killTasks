@@ -5,6 +5,7 @@ declare(strict_types=1);
 include_once("../service/task.php");
 include_once("../config/pdo.php");
 include_once("../utils/convertors.php");
+include_once("../partials/badges.php");
 
 
 $task_service = new TaskService();
@@ -40,23 +41,6 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) === 'GET') {
 
 }
 
-/**
- * @param string $status
- * @return string - bootstrap color class
- */
-function status_color(string $status): string
-{
-  switch (strtolower($status)) {
-    case "working":
-      return "warning";
-    case "completed":
-      return "success";
-    case "overdue":
-      return "danger";
-    default:
-      return "warning";
-  }
-}
 
 ?>
 <main class="mx-5">
@@ -86,7 +70,7 @@ function status_color(string $status): string
             <td><?php echo $task->get_task_name() ?></td>
             <td><?php echo $task->get_task_description() ?></td>
             <td><?php echo $task->get_user_email() ?></td>
-            <td><span class="<?php echo "badge text-bg-" . status_color($task->get_status()); ?>"><?php echo ucwords($task->get_status()); ?></span></td>
+            <td><?= status_badge($task->get_status())?> </td>
             <td><?php echo ucwords($task->get_category())  ?? "" ?></td>
             <td><?php echo ucwords($task->get_team()) ?? "" ?></td>
             <td><?php echo string_to_date($task->get_start_date(), 'Y/m/d') ?? "" ?></td>

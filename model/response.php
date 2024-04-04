@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-enum HTTP_CODE :string {
+enum HTTP:string {
   case OK = 200;
   case CREATED = 201;
   case NO_CONTENT = 204;
@@ -23,11 +23,10 @@ enum HTTP_CODE :string {
 class Response 
 {
   public bool $success;
-  public HTTP_CODE $code;
-  public string $message;
-  public string $json;
+  public HTTP $code;
+  public mixed $message;
 
-  public function __construct(bool $success, string $message)
+  public function __construct(bool $success, mixed $message)
   {
     $this->success = $success;
     $this->message = $message;

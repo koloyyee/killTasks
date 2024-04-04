@@ -31,25 +31,44 @@ class TaskService
       $result =  $statement->fetchAll(PDO::FETCH_ASSOC);
 
       if (!empty($result)) {
-        $tasks = [];
         return $result;
-        // foreach ($result as $row) {
-        //   $task = new Task(
-        //     $row['task_id'],
-        //     $row['task_name'],
-        //     $row['task_description'],
-        //     $row['user_email'],
-        //     $row['category'],
-        //     $row['status'],
-        //     $row['team'],
-        //     $row['start_date'],
-        //     $row['due_date'],
-        //     $row['created_at'],
-        //     $row['updated_at']
-        //   );
-        //   array_push($tasks, $task);
-        // }
-        // return $tasks;
+      }
+    } catch (PDOException $e) {
+      echo $e->getMessage();
+    }
+  }
+  public function get_tasks_by_team(string $team = "%%")
+  {
+    try {
+      $sql = " SELECT * FROM task
+      WHERE team LIKE :team
+      AND deleted IS FALSE
+      ORDER BY status DESC, created_at; 
+      ";
+      $stmt = $this->conn->prepare($sql);
+      $stmt->bindParam(":team", $team, PDO::PARAM_STR);
+      $stmt->execute();
+      $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+      $tasks = [];
+      if (!empty($result)) {
+        foreach ($result as $row) {
+          $task = new Task(
+            $row['task_id'],
+            $row['task_name'],
+            $row['task_description'],
+            $row['user_email'],
+            $row['category'],
+            $row['status'],
+            $row['team'],
+            $row['start_date'],
+            $row['due_date'],
+            $row['created_at'],
+            $row['updated_at']
+          );
+          array_push($tasks, $task);
+        }
+        return $tasks;
       }
     } catch (PDOException $e) {
       echo $e->getMessage();
@@ -199,10 +218,6 @@ class TaskService
     $start_date = $task->get_start_date();
     $due_date = $task->get_due_date();
 
-    echo "service";
-    pprint($task);
-
-     
     try {
       $sql = " UPDATE task SET
       task_name = :task_name,
@@ -248,6 +263,48 @@ class TaskService
       $stmt = $this->conn->prepare($sql);
       $stmt->bindParam(':task_id', $task_id, PDO::PARAM_INT);
       $stmt->execute();
+    } catch (PDOException $e) {
+      echo $e->getMessage();
+    }
+  }
+
+  function group_by_team()
+  {
+    try {
+      $sql = " SELECT team, count(*) as count FROM task
+      GROUP BY team, deleted
+      HAVING deleted IS FALSE
+      ORDER BY team;
+      ";
+      $stmt = $this->conn->prepare($sql);
+      $stmt->execute();
+      $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      if (!empty($result) && isset($result)) {
+        return $result;
+      }
+    } catch (PDOException $e) {
+      echo $e->getMessage();
+    }
+  }
+
+  function group_by_team_status(string $team = "%%")
+  {
+    try {
+      $sql = " SELECT team, count(*) count, status
+      FROM task
+      WHERE team LIKE :team
+      GROUP BY team, status, deleted
+      HAVING  deleted IS FALSE
+      ORDER BY team;
+      ";
+
+      $stmt = $this->conn->prepare($sql);
+      $stmt->bindParam(":team", $team, PDO::PARAM_STR);
+      $stmt->execute();
+      $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      if (!empty($result) && isset($result)) {
+        return $result;
+      }
     } catch (PDOException $e) {
       echo $e->getMessage();
     }

@@ -17,7 +17,7 @@
  * @property ?string $start_date
  * @property ?string $due_date
  **/
-class Task
+class Task implements \JsonSerializable
 {
   private ?int $task_id;
   private string $task_name;
@@ -44,6 +44,10 @@ class Task
     $this->updated_at = $updated_at;
     $this->start_date = $start_date;
     $this->due_date = $due_date;
+  }
+
+  public function jsonSerialize() {
+    return get_object_vars($this);
   }
 
   public function get_task_id(): int

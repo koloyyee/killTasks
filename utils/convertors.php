@@ -10,3 +10,21 @@ function pprint($data)
   print_r($data);
   echo "</pre>";
 }
+
+/**
+ * @param string $status
+ * @return string - bootstrap color class
+ */
+function status_color(string $status): string
+{
+  switch (strtolower($status)) {
+    case "working":
+      return "warning";
+    case "completed":
+      return "success";
+    case "overdue":
+      return "danger";
+    default:
+      return "warning";
+  }
+}

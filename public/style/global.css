@@ -1,6 +1,7 @@
 @import "./auth.css";
 @import "./task.css";
 @import "./dialog.css";
+@import "./dashboard.css";
 
 * {
   margin: 0;
