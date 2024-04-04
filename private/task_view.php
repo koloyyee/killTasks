@@ -3,6 +3,7 @@
 declare(strict_types=1);
 include_once("../service/task.php");
 include_once("../utils/convertors.php");
+include_once("../partials/back_btn.php");
 
 if (isset($_GET["task_id"])) {
   $task_id = $_GET['task_id'];
@@ -42,4 +43,5 @@ if (isset($_GET["task_id"])) {
 
 </main>
 
+<?php echo back_btn("../private/dashboard.php"); ?>
 <?php include("../partials/footer.php") ?>

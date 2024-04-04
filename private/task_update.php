@@ -9,6 +9,7 @@ include_once("../service/task.php");
 include_once("../utils/checkers.php");
 include_once("../utils/convertors.php");
 include_once("../partials/options.php");
+include_once("../partials/back_btn.php");
 
 session_start();
 $user_email = $_SESSION['email'];
@@ -120,5 +121,6 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST') {
   </div>
 </form>
 </main>
-  <button  class="btn btn-secondary btn-sm" ><a  class=" link-light" href="../private/personal.php"> < Go Back </a></button> 
+        <?php echo back_btn(); ?>
+  <!-- <button  class="btn btn-secondary btn-sm" ><a  class=" link-light" href=> < Go Back </a></button>  -->
 <?php include("../partials/footer.php") ?>

@@ -27,7 +27,8 @@ if (!isset($tasks) || empty($tasks)) {
 }
 $dup_teams = array_map(fn ($task): string => $task->get_team(), $tasks);
 // Ds\Set::create($teams);
-function set(array $data) :array {
+function set(array $data): array
+{
   $result = [];
   foreach ($data as $key => $value) {
     if (in_array($value, $result)) {
@@ -70,13 +71,13 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST') {
       </select>
       <button class="btn btn-sm btn-light" type="submit">filter</button>
     </form>
-    <table>
+    <table class="table table-bordered">
       <thead>
         <tr>
-          <th>Team</th>
-          <th>Task</th>
-          <th>Status</th>
-          <th>Due Date</th>
+          <th scope="col">Team</th>
+          <th scope="col">Task</th>
+          <th scope="col">Status</th>
+          <th scope="col">Due Date</th>
         </tr>
       </thead>
       <tbody>
@@ -85,7 +86,11 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST') {
             <?php foreach ($group_by[$team] as $task) : ?>
               <tr>
                 <td><?= $task->get_team() ?></td>
-                <td><?= $task->get_task_name() ?></td>
+                <td>
+                  <a href="task_view.php?task_id=<?= $task->get_task_id() ?>">
+                    <?= $task->get_task_name() ?>
+                  </a>
+                </td>
                 <td><?= status_badge($task->get_status()) ?></td>
                 <td><?= string_to_date($task->get_due_date(), 'Y/m/d') ?></td>
               </tr>
@@ -94,34 +99,6 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST') {
         <?php endforeach; ?>
       </tbody>
     </table>
-
-    <!-- <?php foreach ($group_by as $team => $tasks) : ?>
-      <div class="card mt-2">
-        <div class="card-header">
-          <h3><?= $team ?></h3>
-        </div>
-        <div class="card-body">
-          <table>
-            <thead>
-              <tr>
-                <th>Task Name</th>
-                <th>Status</th>
-                <th>Due Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php foreach ($tasks as $task) : ?>
-                <tr>
-                  <td><?= $task->get_task_name() ?></td>
-                  <td><?= status_badge($task->get_status()) ?></td>
-                  <td><?= string_to_date($task->get_due_date(), 'Y/m/d') ?></td>
-                </tr>
-              <?php endforeach; ?>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    <?php endforeach; ?> -->
   </div>
 </main>
 

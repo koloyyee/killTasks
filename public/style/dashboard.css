@@ -1,15 +1,34 @@
 #dashboard {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 #chart {
-  grid-column-start: 1;
-  grid-column-end: 1;
+  /* position: relative; */
+  height: 40vh;
+  width: 100vw;
+  margin: 3rem;
 }
+#teams_tasks > form {
+    margin-left: 1rem; 
+    margin-right: 1rem; 
+}
+@media (min-width: 768px) {
+  #dashboard {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+  }
 
-#teams_tasks {
-  grid-column-start: 5;
-  grid-column-end: 12;
-  row-gap: 0.5rem;
+  #chart {
+    grid-column-start: 2;
+    grid-column-end: 5;
+    width: 40vw ;
+  }
+
+  #teams_tasks {
+    grid-column-start: 5;
+    grid-column-end: 12;
+  }
 }
