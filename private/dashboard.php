@@ -25,9 +25,8 @@ if (!isset($tasks) || empty($tasks)) {
     $json = json_encode($group_by);
   }
 }
-$teams = array_map(fn ($task): string => $task->get_team(), $tasks);
+$dup_teams = array_map(fn ($task): string => $task->get_team(), $tasks);
 // Ds\Set::create($teams);
-
 function set(array $data) :array {
   $result = [];
   foreach ($data as $key => $value) {
@@ -37,8 +36,8 @@ function set(array $data) :array {
     $result[] = $value;
   }
   return $result;
-
 }
+$teams = set($dup_teams);
 
 
 if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST') {
@@ -46,8 +45,6 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST') {
     $team = sanitize($_POST['team'], Input::string);
     $service = new TaskService();
     $result = $service->get_tasks_by_team($team);
-
-    pprint($result);
     $group_by = array();
     foreach ($result as $key => $value) {
       $group_by[$value->get_team()][] = $value;
