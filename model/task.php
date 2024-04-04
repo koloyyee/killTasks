@@ -1,10 +1,10 @@
 <?php
 
-/***
- * Task is a class that represents a task object
+/**
+ * Task is an immutable class that represents a task object
  * similar to DTO data transfer object
  * this mimics the structure of the task table
- * 
+ *  
  * @property int $task_id
  * @property string $task_name
  * @property string $task_description
@@ -46,6 +46,7 @@ class Task implements \JsonSerializable
     $this->due_date = $due_date;
   }
 
+  /** for json_encode with private fields  */
   public function jsonSerialize() {
     return get_object_vars($this);
   }
