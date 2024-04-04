@@ -4,7 +4,6 @@ declare(strict_types=1);
 include_once("../service/task.php");
 include_once("../utils/convertors.php");
 include_once("../utils/checkers.php");
-include_once("../partials/team_tasks_list.php");
 include_once("../partials/badges.php");
 
 
@@ -13,7 +12,6 @@ $service = new TaskService();
 $stats =  $service->group_by_team();
 $team = sanitize("%%", Input::string);
 $tasks = $service->get_tasks_by_team($team);
-
 
 $group_by = array();
 if (!isset($tasks) || empty($tasks)) {
@@ -26,6 +24,9 @@ if (!isset($tasks) || empty($tasks)) {
   }
 }
 $dup_teams = array_map(fn ($task): string => $task->get_team(), $tasks);
+/**
+ * Remove duplicates from array
+ */
 function set(array $data): array
 {
   $result = [];
@@ -112,8 +113,6 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST') {
     data.push(row.count);
   })
 
-  console.log(stats, labels, data)
-
   const ctx = document.getElementById('myChart');
   new Chart(ctx, {
     type: 'doughnut',
@@ -132,13 +131,6 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST') {
         hoverOffset: 4
       }]
     },
-    // options: {
-    //   scales: {
-    //     y: {
-    //       beginAtZero: true
-    //     }
-    //   }
-    // }
   });
 </script>
 <?php include("../partials/footer.php") ?>

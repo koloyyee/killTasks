@@ -24,6 +24,7 @@ $json = json_encode($tasks);
 </dialog>
 
 <button class="btn btn-lg btn-secondary" id="show_search_dialog">Search </button>
+
 <script>
   /** Dialog control */
   const dialog = document.querySelector("#search_dialog");
