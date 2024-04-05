@@ -5,8 +5,8 @@ declare(strict_types=1);
 /***
  * login.php the file to handle login
  */
-include_once("../utils/checkers.php");
-include_once("../service/auth.php");
+include_once("../server/utils/checkers.php");
+include_once("../server/service/auth.php");
 
 /**
  * Error messages variables declaration

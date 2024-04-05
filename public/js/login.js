@@ -1,4 +1,4 @@
-import { toggleDisableBtn } from "./auth";
+import { toggleDisableBtn } from "../js/auth.js";
 /**
  * Avoid querySelector return null
  * wait for DOM to be full loaded

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+// ini_set('error_reporting', E_ALL & ~E_WARNING);
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }

@@ -1,9 +1,9 @@
 <?php
 
 declare(strict_types=1);
-include_once("../service/task.php");
-include_once("../utils/convertors.php");
-include_once("../utils/checkers.php");
+include_once("../server/service/task.php");
+include_once("../server/utils/convertors.php");
+include_once("../server/utils/checkers.php");
 include_once("../partials/badges.php");
 
 
@@ -58,10 +58,10 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST') {
 
 <?php include("../partials/header.php") ?>
 <main id="dashboard">
-  <div id="chart" class="chart-container" style="position: relative; height:40vh;">
+  <!-- <div id="chart" class="chart-container" style="position: relative; height:40vh;">
     <canvas id="myChart"></canvas>
-  </div>
-  <div id="teams_tasks">
+  </div> -->
+  <div id="teams_tasks" class="">
     <form action="dashboard.php" method="POST">
       <select name="team" id="team">
         <option value="%%">All</option>
@@ -102,9 +102,9 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST') {
   </div>
 </main>
 
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
+<!-- <script src="../public/js/tasks.js" type="module" defer></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+<!-- <script>
   const stats = <?= json_encode($stats) ?>;
   const labels = [];
   const data = [];
@@ -132,5 +132,5 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST') {
       }]
     },
   });
-</script>
+</script> -->
 <?php include("../partials/footer.php") ?>

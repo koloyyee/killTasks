@@ -1,10 +1,12 @@
 <?php
 
 declare(strict_types=1);
-include_once("../model/task.php");
-include_once("../model/response.php");
-include_once("../config/pdo.php");
-include_once("../utils/convertors.php");
+include_once("../server/model/task.php");
+include_once("../server/model/response.php");
+include_once("../server/config/pdo.php");
+include_once("../server/utils/convertors.php");
+
+
 /**
  * Task Service
  * CRUD operations for tasks

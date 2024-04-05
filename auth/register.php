@@ -1,11 +1,11 @@
 <?php
 
 declare(strict_types=1);
-include_once("../config/pdo.php");
-include_once("../service/user.php");
-include_once("../model/user.php");
-include_once("../model/response.php");
-include_once("../utils/checkers.php");
+include_once("../server/config/pdo.php");
+include_once("../server/service/user.php");
+include_once("../server/model/user.php");
+include_once("../server/model/response.php");
+include_once("../server/utils/checkers.php");
 
 /**
  * Error messages declaration

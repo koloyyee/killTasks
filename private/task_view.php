@@ -1,8 +1,8 @@
 <?php
 // single task
 declare(strict_types=1);
-include_once("../service/task.php");
-include_once("../utils/convertors.php");
+include_once("../server/service/task.php");
+include_once("../server/utils/convertors.php");
 include_once("../partials/back_btn.php");
 
 if (isset($_GET["task_id"])) {

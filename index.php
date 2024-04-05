@@ -5,6 +5,7 @@
  * by checking if the user_id session variable has user_id. 
  * 
  */
+
 if(isset($_SESSION['user_id'])) {
     header("Location: private/dashboard.php");
 } else {

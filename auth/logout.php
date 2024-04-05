@@ -1,3 +1,3 @@
 <?php
-include_once("../service/auth.php");
+include_once("../server/service/auth.php");
 AuthService::logout();

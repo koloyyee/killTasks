@@ -20,7 +20,7 @@
     private static string $DB_USER = "admin"; // custom name and password
     private static string $DB_PASS = "admin";
     private static string $DB_NAME = "killtasks";
-    private static string $DB_PORT = "3307"; // or 3306 the default port
+    private static string $DB_PORT = "3306"; // or 3306 the default port
 
     /**
      * DNS: data source name 

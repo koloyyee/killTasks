@@ -5,9 +5,9 @@
  */
 
 declare(strict_types=1);
-include_once("../service/task.php");
-include_once("../utils/checkers.php");
-include_once("../utils/convertors.php");
+include_once("../server/service/task.php");
+include_once("../server/utils/checkers.php");
+include_once("../server/utils/convertors.php");
 include_once("../partials/options.php");
 include_once("../partials/back_btn.php");
 

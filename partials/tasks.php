@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 // show all tasks
-include_once("../service/task.php");
-include_once("../config/pdo.php");
-include_once("../utils/convertors.php");
+include_once("../server/service/task.php");
+include_once("../server/config/pdo.php");
+include_once("../server/utils/convertors.php");
 include_once("../partials/badges.php");
 include_once("../partials/back_btn.php");
 
@@ -43,7 +43,7 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) === 'GET') {
 
 
 ?>
-<main class="mx-5 table-responsive">
+<main class="table-responsive table_wrapper">
   <?php foreach ($groupByStatus as $status => $tasks) : ?>
     <table class="table table-bordered align-middle">
       <thead>
@@ -84,4 +84,3 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) === 'GET') {
     </table>
   <?php endforeach; ?>
 </main>
-<?php echo back_btn("../private/dashboard.php"); ?>

@@ -17,5 +17,5 @@ function status_badge($status)
       $color = "light";
       break;
   }
-  return "<span class='badge text-bg-" . $color  . "'>" . $status . "</span>";
+  return "<span class='bdg bdg-" . $color  . "'>" . $status . "</span>";
 }

@@ -4,8 +4,8 @@
  */
 declare(strict_types=1);
 include_once("../partials/status_options.php");
-include_once("../service/task.php");
-include_once("../utils/checkers.php");
+include_once("../server/service/task.php");
+include_once("../server/utils/checkers.php");
 
 if(strtoupper($_SERVER['REQUEST_METHOD']) === 'POST'){
   $task_name = sanitize($_POST['task_name'], Input::string);

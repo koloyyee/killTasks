@@ -1,0 +1,19 @@
+.table_wrapper {
+  margin-left: 3rem;
+  margin-right: 3rem;
+}
+
+.btn-wrapper {
+  display: flex;
+  width: 80vw;
+  justify-content: space-evenly;
+  margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+  .table_wrapper {
+    margin-left: 3rem;
+    margin-right: 3rem;
+    width: 80vw;
+  }
+}
