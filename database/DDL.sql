@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3307
--- Generation Time: Apr 03, 2024 at 10:02 PM
+-- Host: 127.0.0.1
+-- Generation Time: Apr 06, 2024 at 04:03 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -110,13 +110,18 @@ CREATE TABLE `task` (
 --
 
 INSERT INTO `task` (`task_id`, `task_name`, `task_description`, `user_email`, `category`, `status`, `team`, `created_at`, `updated_at`, `start_date`, `due_date`, `deleted`) VALUES
-(4, 'First Task', 'First task description', 'ko000029@algonquinlive.com', 'budget', '', NULL, '2024-03-30 02:59:48', '2024-04-01 11:38:22', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
-(8, 'Hello', 'First task now Update', 'test@killtasks.com', 'review', 'working', 'marketing', '2024-04-03 13:01:45', '2024-04-03 13:24:02', '2024-04-15 04:00:00', '2024-04-09 04:00:00', 0),
+(4, 'First Task', 'First task description', 'ko000029@algonquinlive.com', 'budget', 'working', 'accounting', '2024-03-30 02:59:48', '2024-04-03 19:14:32', '2024-04-22 23:14:09', '2024-04-29 23:14:09', 0),
+(8, 'Hello', 'First task now Update', 'test@killtasks.com', 'review', 'working', 'marketing', '2024-04-03 13:01:45', '2024-04-04 14:59:11', '2024-04-15 04:00:00', '2024-04-09 04:00:00', 1),
 (25, 'HEllo', 'world', 'test@killtasks.com', 'budget', 'completed', 'development', '2024-04-03 17:14:39', '2024-04-03 13:23:54', '2024-04-15 04:00:00', '2024-04-30 04:00:00', 0),
 (26, 'HEllo', 'world', 'test@killtasks.com', 'budget', 'working', 'marketing', '2024-04-03 17:14:40', '2024-04-03 14:23:17', '2024-04-15 04:00:00', '2024-04-30 04:00:00', 1),
-(27, 'obstart?', 'obflush?', 'test@killtasks.com', 'budget', 'overdue', 'marketing', '2024-04-03 17:23:28', '2024-04-03 15:08:11', '2024-04-24 04:00:00', '2024-04-29 04:00:00', 0),
+(27, 'obstart?', 'obflush?', 'test@killtasks.com', 'budget', 'completed', 'marketing', '2024-04-03 17:23:28', '2024-04-04 14:59:07', '2024-04-24 04:00:00', '2024-04-29 04:00:00', 0),
 (28, 'complet', 'completed', 'test@killtasks.com', 'budget', 'completed', 'marketing', '2024-04-03 17:24:22', '2024-04-03 13:24:22', '2024-04-23 04:00:00', '2024-04-28 04:00:00', 0),
-(29, 'HIJV', 'Hi Name!!!', 'test@killtasks.com', 'budget', 'overdue', 'research', '2024-04-03 19:32:26', '2024-04-03 15:32:46', '2024-04-10 04:00:00', '2024-04-22 04:00:00', 0);
+(29, 'HIJV', 'Hi Name!!!', 'test@killtasks.com', 'budget', 'working', 'research', '2024-04-03 19:32:26', '2024-04-04 16:15:42', '2024-04-10 04:00:00', '2024-04-22 04:00:00', 0),
+(30, 'ko000029@algo.com', 'ko000029@algo.com', 'ko000029@algo.com', 'budget', 'working', 'marketing', '2024-04-04 13:36:37', '2024-04-04 09:36:37', '2024-04-16 04:00:00', '2024-04-28 04:00:00', 0),
+(31, 'Paulo', 'Paulo', 'test@killtasks.com', 'review', 'completed', 'marketing', '2024-04-04 18:59:52', '2024-04-04 16:15:30', '2024-04-17 04:00:00', '2024-04-29 04:00:00', 0),
+(32, 'sddddd', 'ddd', 'test@killtasks.com', 'budget', 'overdue', 'marketing', '2024-04-04 20:16:17', '2024-04-04 16:16:17', '2024-04-16 04:00:00', '2024-05-06 04:00:00', 0),
+(33, 'test backend', 'test', 'test@killtasks.com', 'budget', 'working', 'marketing', '2024-04-04 21:13:27', '2024-04-04 17:13:27', '2024-04-03 04:00:00', '2024-05-09 04:00:00', 0),
+(34, 'Admin task', 'Admin task Desc', 'admin@admin.com', 'budget', 'working', 'marketing', '2024-04-06 14:02:07', '2024-04-06 10:02:07', '2024-04-06 04:00:00', '2024-04-15 04:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -177,11 +182,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `first_name`, `last_name`, `email`, `password`, `role`, `team`) VALUES
-(1, 'First', 'user', 'test@killtasks.com', '$2y$10$WGJJkj3U.hOnUQhSyBtiBOhQa7Q64FyW1tDmHu./4OI6kAI26qq2.', '0', '0'),
-(2, 'Loy Yee', 'Ko', 'ko000029@algonquinlive.com', '$2y$10$Vbuc9Cms6Xm642paqCLYjuDxaqfIgczMujTkeNAK2isZDe8KcUxiW', 'member', ''),
-(12, 'David', 'Ko', 'ko000029@algonquincollege.com', '$2y$10$dXZC43Pr7bUPwhFe0dK0xOhiT/d5mCnpb6/MgvahE8.NU3GgtbJF.', 'member', ''),
-(13, 'Loy Yee', 'Ko', 'koloyyee@algonquin.com', '$2y$10$HY0JdkSNpauvNA4W2mCFleCLDwP6ClAGrEvmz0id9zAJfexWqtc6G', 'member', ''),
-(15, 'ko000029@algo.com', 'ko000029@algo.com', 'ko000029@algo.com', '$2y$10$5GvYVl7YI/kzMw1YNNzT5ejEXXX7Qg2GjUnS.b9FMDV.sUChrlv9m', 'member', '');
+(1, 'SEcond', 'user', 'test@killtasks.com', '$2y$10$WGJJkj3U.hOnUQhSyBtiBOhQa7Q64FyW1tDmHu./4OI6kAI26qq2.', '0', '0'),
+(29, 'admin', 'admin', 'admin@admin.com', '$2y$10$KElZEtEzYfbbFHovz2Lb8OMTok1QXDd1JhumAc6kQOKTmJO5AeISK', '0', '0');
 
 -- --------------------------------------------------------
 
@@ -281,7 +283,7 @@ ALTER TABLE `status`
 -- AUTO_INCREMENT for table `task`
 --
 ALTER TABLE `task`
-  MODIFY `task_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `task_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `task_s`
@@ -299,7 +301,7 @@ ALTER TABLE `team`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'pk user_id', AUTO_INCREMENT=27;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'pk user_id', AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `user_s`
