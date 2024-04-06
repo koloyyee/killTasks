@@ -5,6 +5,10 @@
 In modern society, we are often expected to be multi-tasking but in reality, just like a computer a CPU, we are only context-switching between each other, to keep ourselves on track.
 Task management is a handy tool for personal use or groups to keep track of the status of different tasks, the status, and who handles each task.
 
+## Documentation and Checklist
+
+**IMPORTANT!**: Please find the assignment 2 related documents: Design Documentation _KillTasks_Design_Doc.docx  and Checklist _Checklist.xlsx_ in the `doc` directory.
+
 ## To Start
 
 1. First, import the “killtasks” folder into the “htdocs” in the “Xampp”
@@ -50,11 +54,13 @@ The application will be using PHP, MariaDB, and Apache as the server-side techno
 
 ### Database Design
 
-Conceptual
+#### Conceptual
+
 User – first_name, last_name, email, password, role, team, created_at
+
 Task – task_name, task_description, status, user, team, created_at, updated_at, start_date, due_date
 
-### Physical Design
+#### Physical Design
 
 ![physical design](./doc/physical_design.png)
 
