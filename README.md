@@ -5,6 +5,14 @@
 In modern society, we are often expected to be multi-tasking but in reality, just like a computer a CPU, we are only context-switching between each other, to keep ourselves on track.
 Task management is a handy tool for personal use or groups to keep track of the status of different tasks, the status, and who handles each task.
 
+## To Start
+
+1. First, import the “killtasks” folder into the “htdocs” in the “Xampp”
+2. Go to http://localhost/phpMyAdmin then create database “killtasks”; copy, paste, and run the DDL.sql from the “database”directory, after successfully creating tables and inserting dummy data
+3. Go to [http://localhost/killtasks](http://localhost/killtasks)
+4. Login with email: [admin@admin.com](mailto:admin@admin.com) password: [admin@admin.com](mailto:admin@admin.com).
+5. Try out other functions.
+
 ## Goal
 
 Our task management is to have a clear view of all the tasks, here is the list of functionalities the task management should be able to perform.
@@ -36,7 +44,7 @@ The task management system is not meant to include a calendar, Gantt chart, or K
 
 ### Architecture
 
-![](./doc/architecture.drawio.png.jpg)
+![Architecture](./doc/architecture.drawio.png.jpg)
 
 The application will be using PHP, MariaDB, and Apache as the server-side technology stack. The pages will be dynamically loaded and updated with PHP, JavaScript, HTML5 and CSS3. The application will be server-side rendered to provide a monolithic application approach.
 
@@ -44,7 +52,7 @@ The application will be using PHP, MariaDB, and Apache as the server-side techno
 
 Conceptual
 User – first_name, last_name, email, password, role, team, created_at
-Task – task_name, task_description, status, user, team, created_at, updated_at, start_date, due_date	
+Task – task_name, task_description, status, user, team, created_at, updated_at, start_date, due_date
 
 ### Physical Design
 
@@ -53,6 +61,13 @@ Task – task_name, task_description, status, user, team, created_at, updated_at
 ### Frontend Technology Stack
 
 For KillTasks, the frontend technology stack will be HTML5, CSS3, JavaScript (ES2022), Bootstrap, ChartJS.
+
+## Wireframe
+
+![Login design](./doc/Logout.png)
+![Dashboard design](./doc/Dashboard.png)
+![Personal page design](./doc/personal.png)
+![Settings design](./doc/Setting.png)
 
 ## Summary
 
