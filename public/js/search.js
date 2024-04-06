@@ -46,7 +46,7 @@
       div.innerHTML = `
 <a class="text-decoration-none" href="../private/task_view.php?task_id=${task.task_id}">
 <div class="card" style="width: 18rem; margin-bottom: 1rem;">
-  <ul class="list-group list-group-flush">
+  <ul class="list-group list-group-flush search_list">
     <li class="list-group-item">
     ${task.task_name} by ${task.user_email} 
      <span class="bdg bdg-${statusColor(task.status)}"> ${task.status }</span>

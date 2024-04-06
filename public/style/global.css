@@ -30,7 +30,7 @@ input {
   color: #0070ba;
 }
 table {
-  overflow-x: scroll;
+  overflow-x: auto;
   width : 100%;
 }
 tr {

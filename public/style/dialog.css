@@ -1,7 +1,6 @@
 #create_task_dialog[open],
 #search_dialog[open] {
   width: 100vw;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -32,11 +31,15 @@
   opacity: 0.75;
 }
 
+.search_list {
+  overflow-y: auto;
+}
+
 @media (min-width: 768px) {
   #create_task_dialog[open],
   #search_dialog[open] {
     width: 50vw;
-    height:100vh;
+    height:auto;
     position: relative;
     left: 20%;
     top: 2%;
