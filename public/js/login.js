@@ -27,7 +27,7 @@ function validateLogin(validate) {
       const errMsg = target.nextElementSibling;
       switch (target.id) {
         case "email":
-          if (!target.value.includes("@")) {
+          if (!target.value.trim().includes("@")) {
             errMsg.innerHTML = "Email must be valid";
             validate.email = false;
           } else {
@@ -37,7 +37,7 @@ function validateLogin(validate) {
           }
           break;
         case "password":
-          if (target.value.length < 1) {
+          if (target.value.trim().length < 1) {
             errMsg.innerHTML = "Cannot be empty";
             validate.password = false;
           } else {

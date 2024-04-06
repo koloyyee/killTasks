@@ -28,7 +28,7 @@ function validateRegister(validate) {
       const errMsg = target.nextElementSibling;
       switch (target.id) {
         case "first_name":
-          if (target.value.length < 1) {
+          if (target.value.trim().length < 1) {
             errMsg.innerHTML = "Name must be at least 2 characters";
             validate.first_name = false;
           } else {
@@ -38,7 +38,7 @@ function validateRegister(validate) {
           }
           break;
         case "last_name":
-          if (target.value.length < 2) {
+          if (target.value.trim().length < 2) {
             errMsg.innerHTML = "Name must be at least 2 characters";
             validate.last_name = false;
           } else {
@@ -48,7 +48,7 @@ function validateRegister(validate) {
           }
           break;
         case "email":
-          if (!target.value.includes("@")) {
+          if (!target.value.trim().includes("@")) {
             errMsg.innerHTML = "Email must be valid";
             validate.email = false;
           } else {
@@ -58,7 +58,7 @@ function validateRegister(validate) {
           }
           break;
         case "password":
-          if (target.value.length < 8) {
+          if (target.value.trim().length < 8) {
             errMsg.innerHTML = "Password must be at least 8 characters";
             validate.password = false;
           } else {

@@ -82,9 +82,8 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST') {
       <small class="err_msg"><?= $password_err ?></small>
 
       <div class="d-flex">
-        <button id="submit" type='submit' class="btn btn-primary p-2 w-50 m-2">Register</button>
         <button type='reset' class="btn btn-danger w-50 m-2">Reset</button>
-
+        <button id="submit" type='submit' class="btn btn-primary p-2 w-50 m-2">Register</button>
       </div>
     </form>
     <a href='./login.php'> Got an account? Login!</a>

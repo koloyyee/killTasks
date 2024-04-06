@@ -72,6 +72,29 @@ tr:hover {
   }
 }
 
+.btn-primary {
+  background: #0070ba;
+  color: white;
+  border: none;
+}
+.btn-primary:hover {
+  background: #005f9e;
+}
+.btn-secondary {
+  background: #f0f0f0;
+  color: #333;
+  border: none;
+}
+.btn-secondary:hover {
+  background: #e6e6e6;
+}
+
+.btn-danger {
+  background: #ff4436;
+  color: white;
+  border: none;
+}
+
 .bdg-success {
   background: #b4eda0;
 }
@@ -89,4 +112,12 @@ tr:hover {
 }
 .bdg-danger:before {
   background: #ff4436;
+}
+
+.w-50 {
+  width:50%;
+}
+
+.m-2 {
+  margin: 1.5rem;
 }

@@ -1,5 +1,5 @@
-'use strict';
-import {toggleDisableBtn } from './auth.js';
+"use strict";
+import { toggleDisableBtn } from "./auth.js";
 
 const dialog = document.querySelector("#create_task_dialog");
 const showButton = document.querySelector("#show_dialog_btn");
@@ -15,13 +15,12 @@ closeButton.addEventListener("click", () => {
   dialog.close();
 });
 
-  const validate= {
-    task_name: false,
-    task_description: false,
-    start_date: false,
-    due_date: false,
-  };
-
+const validate = {
+  task_name: false,
+  task_description: false,
+  start_date: false,
+  due_date: false,
+};
 
 function validateInput(elName, validate, message = "Cannot be empty") {
   toggleDisableBtn(validate);
@@ -45,9 +44,9 @@ function validateInput(elName, validate, message = "Cannot be empty") {
         default:
           if (target.value.trim().length < 1) {
             errSpan.innerHTML = message;
-            validate[target.id]= false;
+            validate[target.id] = false;
           } else {
-            validate[target.id]= true;
+            validate[target.id] = true;
             errSpan.innerHTML = "";
             toggleDisableBtn(validate);
             console.log(validate);
@@ -58,11 +57,20 @@ function validateInput(elName, validate, message = "Cannot be empty") {
   });
 }
 
+/**
+ * min date for due_date input
+ */
+const startDate = document.getElementById("start_date");
+startDate.setAttribute("min", new Date().toISOString().split("T")[0]);
+startDate.addEventListener("change", () => {
+  const dueDate = document.getElementById("due_date");
+  dueDate.setAttribute("min", startDate.value);
+});
 
 // const form = document.querySelector(".create_task_form");
 // form.addEventListener("submit", (event) => {
 //   event.preventDefault();
-  
+
 //   const formData = new FormData(form);
 //   for(const[key, value] of formData.entries()) {
 //     console.log(key, value);
@@ -74,7 +82,6 @@ function validateInput(elName, validate, message = "Cannot be empty") {
 //   }).then((response) => {
 //     console.log(response);
 //   }).catch((error) => { console.log(error); });
-
 
 //   form.reset();
 //   dialog.close();

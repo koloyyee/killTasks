@@ -100,7 +100,11 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST') {
       </tbody>
     </table>
   </div>
+    <div id="create_task">
+    <?php include("../partials/create_dialog.php") ?>
+    </div>
 </main>
+
 
 <!-- <script src="../public/js/tasks.js" type="module" defer></script> -->
 <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->

@@ -1,20 +1,21 @@
-#create_task_dialog[open], #search_dialog[open] {
-    width: 50vw;
-    display: flex; 
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    left: 20%;
-    top: 5%;
-    border: 1px solid #ccc;
-    border-radius: 1rem;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+#create_task_dialog[open],
+#search_dialog[open] {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  left:5%;
+  bottom: 2%;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 #show_dialog_btn {
-  margin-right:10%;
+  margin-right: 10%;
   position: relative;
   left: 90%;
   bottom: 5%;
@@ -31,3 +32,13 @@
   opacity: 0.75;
 }
 
+@media (min-width: 768px) {
+  #create_task_dialog[open],
+  #search_dialog[open] {
+    width: 50vw;
+    height:100vh;
+    position: relative;
+    left: 20%;
+    top: 2%;
+  }
+}

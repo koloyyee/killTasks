@@ -19,16 +19,24 @@
   #dashboard {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(2, 1fr);
   }
 
   #chart {
     grid-column-start: 2;
     grid-column-end: 5;
     width: 40vw ;
+    grid-row-start: 1;
+    grid-row-end: 2;
   }
 
   #teams_tasks {
-    grid-column-start: 5;
-    grid-column-end: 12;
+    grid-column-start: 3;
+    grid-column-end: 9;
+  }
+  #create_task{
+    grid-column: 7 / span 3;
+    grid-row-start: 1;
+    grid-row-start: 2;
   }
 }

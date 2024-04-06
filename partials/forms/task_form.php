@@ -28,7 +28,7 @@ if (isset($_GET['task_id'])) {
   $update_at = $task->get_updated_at();
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['task_id'])) {
   $task_id =  $_POST['task_id'] === null ? null : sanitize($_POST['task_id'], Input::number);
   $task_name = sanitize($_POST['task_name'], Input::string);
   $task_description = sanitize($_POST['task_description'], Input::string);
