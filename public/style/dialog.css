@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  left:5%;
+  left: 5%;
   bottom: 2%;
   align-items: center;
   border: 1px solid #ccc;
@@ -12,7 +12,12 @@
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
-
+#filtered_tasks {
+  margin: 1rem;
+  padding: 0 3rem;
+  max-height: 30rem;
+  overflow-y: scroll;
+}
 #show_dialog_btn {
   margin-right: 10%;
   position: relative;
@@ -39,7 +44,6 @@
   #create_task_dialog[open],
   #search_dialog[open] {
     width: 50vw;
-    height:auto;
     position: relative;
     left: 20%;
     top: 2%;
