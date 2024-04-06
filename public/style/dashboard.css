@@ -11,32 +11,32 @@
   width: 100vw;
   margin: 3rem;
 }
+#teams_tasks {
+  width: 80%;
+  grid-column-start: 1;
+  grid-column-end: 12;
+}
 #teams_tasks > form {
-    margin-left: 1rem; 
-    margin-right: 1rem; 
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 @media (min-width: 768px) {
   #dashboard {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: repeat(2, 1fr);
   }
 
   #chart {
     grid-column-start: 2;
     grid-column-end: 5;
-    width: 40vw ;
-    grid-row-start: 1;
-    grid-row-end: 2;
+    width: 40vw;
   }
 
   #teams_tasks {
     grid-column-start: 3;
-    grid-column-end: 9;
+    grid-column-end: 12;
   }
-  #create_task{
+  #create_task {
     grid-column: 7 / span 3;
-    grid-row-start: 1;
-    grid-row-start: 2;
   }
 }

@@ -29,7 +29,10 @@ input {
   font-size: 0.8rem;
   color: #0070ba;
 }
-
+table {
+  overflow-x: scroll;
+  width : 100%;
+}
 tr {
   border-bottom: 1px solid #ddd;
 }

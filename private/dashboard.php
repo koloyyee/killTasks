@@ -61,7 +61,7 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST') {
   <!-- <div id="chart" class="chart-container" style="position: relative; height:40vh;">
     <canvas id="myChart"></canvas>
   </div> -->
-  <div id="teams_tasks" class="">
+  <div id="teams_tasks" class="table-responsive">
     <form action="dashboard.php" method="POST">
       <select name="team" id="team">
         <option value="%%">All</option>
